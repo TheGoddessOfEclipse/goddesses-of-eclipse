@@ -1,0 +1,248 @@
+body {
+    background-color: #000000;
+}
+
+.font-mythic { font-family: 'Cinzel', serif; }
+.font-body { font-family: 'Lora', serif; }
+
+/* ========================================================
+   PORTAL CIRCLES (Eclipse Glow Animation)
+======================================================== */
+.portal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* 1. The Breathing Eclipse Keyframes */
+@keyframes eclipse-corona {
+    0%, 100% {
+        box-shadow: 0 0 15px 2px rgba(255, 255, 255, 0.4),   /* Inner white-hot ring */
+                    0 0 30px 8px rgba(251, 191, 36, 0.3),    /* Main amber corona */
+                    0 0 50px 15px rgba(180, 83, 9, 0.15),    /* Outer dark orange fade */
+                    inset 0 0 20px 8px rgba(0, 0, 0, 0.9);   /* Dark inner shadow blocking the light */
+    }
+    50% {
+        box-shadow: 0 0 25px 4px rgba(255, 255, 255, 0.7),   /* Corona flares up and gets brighter */
+                    0 0 45px 12px rgba(251, 191, 36, 0.5), 
+                    0 0 70px 20px rgba(180, 83, 9, 0.25), 
+                    inset 0 0 15px 4px rgba(0, 0, 0, 0.8);
+    }
+}
+
+.portal-frame {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    /* Subtle dark border so the light looks like it's coming from behind */
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    background-color: #050505; /* Pitch black like the moon */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+    
+    /* Apply the continuous eclipse breathing effect */
+    animation: eclipse-corona 4s ease-in-out infinite;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* 2. Solar Flare on Hover */
+.portal-container:hover .portal-frame {
+    transform: scale(1.08);
+    /* Overriding the infinite animation temporarily to simulate a bright solar flare */
+    animation: none; 
+    box-shadow: 0 0 30px 5px rgba(255, 255, 255, 0.9), 
+                0 0 60px 15px rgba(251, 191, 36, 0.8), 
+                0 0 90px 25px rgba(180, 83, 9, 0.4), 
+                inset 0 0 10px 0px rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    transition: all 0.4s ease-out;
+}
+
+.portal-title {
+    margin-top: 1.5rem;
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.15em;
+    color: #cbd5e1;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.portal-container:hover .portal-title {
+    color: #fde68a;
+    transform: translateY(2px);
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+}
+
+/* Add your background URLs here */
+#portal-bg-1 { background-image: url('images/portal-blue.png'); }
+#portal-bg-2 { background-image: url('images/portal-red.png'); }
+#portal-bg-3 { background-image: url('images/portal-green.png'); }
+#portal-bg-4 { background-image: url('images/portal-yellow.png'); }
+
+/* ========================================================
+   LAZY-SUSAN CAROUSEL
+======================================================== */
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+.carousel-card {
+    flex: 0 0 auto;
+    width: 220px;
+    aspect-ratio: 1 / 1.6; /* Crops the top/bottom naturally based on height */
+    border-radius: 12px;
+    scroll-snap-align: center;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    /* MODIFIED: Side cards are less darkened and more visible */
+    opacity: 0.6; 
+    transform: scale(0.85);
+    filter: brightness(0.6) saturate(0.8);
+    
+    border: 1px solid rgba(255,255,255,0.05);
+    background-color: #050505;
+    overflow: hidden;
+    
+    /* ADDED: Prevents image ghosting/highlighting when swiping with a mouse */
+    user-select: none;
+}
+
+.carousel-card.is-center {
+    opacity: 1;
+    transform: scale(1.1);
+    filter: brightness(1) saturate(1.1);
+    border-color: rgba(251, 191, 36, 0.7);
+    box-shadow: 0 0 30px rgba(251, 191, 36, 0.2);
+    z-index: 10;
+}
+
+/* FIXED: object-fit instead of object-cover */
+.carousel-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    object-position: center;
+    
+    /* ADDED: Forces mouse clicks to grab the card container, not the image itself */
+    pointer-events: none;
+}
+
+/* ADDED: Changes mouse cursor to a "grabbing hand" when swiping */
+.carousel-container:active { 
+    cursor: grabbing; 
+}
+/* ========================================================
+   THE CELESTIAL ORBIT (Meanings Page)
+======================================================== */
+#orbit-ring {
+    /* The ring is massive, acting as an orbit path */
+    width: 850px; 
+    height: 850px;
+    border-radius: 50%;
+    /* Keep the cards upright while the ring turns */
+    transform-origin: center center;
+}
+
+.orbit-card {
+    position: absolute;
+    width: 80px;  /* Increased from 60px */
+    height: 128px; /* Increased from 96px */
+    top: 50%;
+    left: 50%;
+    margin-top: -64px;  /* Exactly half of 128px */
+    margin-left: -40px; /* Exactly half of 80px */
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+    transition: filter 0.3s, border-color 0.3s, transform 0.3s;
+    user-select: none;
+    pointer-events: auto;
+}
+
+.orbit-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none; /* Prevents dragging the image itself */
+}
+
+.orbit-card:hover {
+    border-color: #fcd34d;
+    filter: brightness(1.2) drop-shadow(0 0 10px rgba(251,191,36,0.6));
+    z-index: 50;
+}
+
+/* Animations for Center Stage Reveal */
+.stage-active {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+.stage-active #panel-left {
+    transform: translateX(0) !important;
+}
+
+.stage-active #panel-right {
+    transform: translateX(0) !important;
+}
+
+.stage-active #center-card-wrapper {
+    transform: scale(1) !important;
+}
+/* ========================================================
+   CARD OF THE DAY (Dark Forest & Fog)
+======================================================== */
+.bg-forest-deep {
+    /* Layer 1: A dark, mystical green-to-black vignette */
+    /* Layer 2: The actual forest background image */
+    background: 
+        radial-gradient(circle at center, rgba(6, 43, 26, 0.6) 0%, rgba(0, 0, 0, 0.95) 100%),
+        url('https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center bottom;
+    background-attachment: fixed;
+    background-color: #000;
+}
+
+.fog-img {
+    position: absolute;
+    width: 200vw;
+    height: 100vh;
+    /* Using a widely available transparent cloud texture for the fog */
+    background: url('https://raw.githubusercontent.com/danielstuart14/CSS_FOG_ANIMATION/master/fog1.png') repeat-x;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.5;
+}
+
+.fog-layer-1 {
+    animation: fog-drift 60s linear infinite;
+    z-index: 11;
+}
+
+.fog-layer-2 {
+    background: url('https://raw.githubusercontent.com/danielstuart14/CSS_FOG_ANIMATION/master/fog2.png') repeat-x;
+    background-size: cover;
+    animation: fog-drift 40s linear infinite;
+    z-index: 12;
+    opacity: 0.3;
+}
+
+@keyframes fog-drift {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100vw); }
+}
+
+/* Visibility classes toggled by JavaScript */
+.fog-active { opacity: 1 !important; }
+.fog-dissipate { opacity: 0 !important; }
+
+.reveal-active {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: scale(1) !important;
+}

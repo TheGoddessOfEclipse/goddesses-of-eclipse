@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Goddesses of Eclipse</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+        .mystic-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        .mystic-shimmer {
+            background-image: linear-gradient(110deg, #fde68a 30%, #ffffff 50%, #fde68a 70%);
+            background-size: 200% auto;
+            animation: shimmer 5s linear infinite;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        .ethereal-glow {
+            filter: drop-shadow(0 0 12px rgba(251,191,36,0.8)) drop-shadow(0 4px 6px rgba(0,0,0,1));
+        }
+    </style>
+</head>
+<body class="bg-black min-h-screen text-slate-200 overflow-x-hidden relative font-body selection:bg-amber-500/30">
+
+    <canvas id="particle-canvas" class="fixed inset-0 z-[-1] pointer-events-none"></canvas>
+
+    <nav class="absolute top-6 right-8 z-50 hidden md:flex space-x-6 font-mythic text-xs tracking-[0.2em] text-slate-400">
+        <a href="#" class="hover:text-amber-300 transition-colors">Design Inspiration</a>
+        <a href="#" class="hover:text-amber-300 transition-colors">Background Cosmology</a>
+        <a href="#" class="hover:text-amber-300 transition-colors">Feedback</a>
+    </nav>
+    
+    <div class="absolute top-6 right-6 md:hidden z-50 text-slate-400">
+        <i class="ph ph-list text-3xl"></i>
+    </div>
+
+    <header class="pt-32 pb-16 px-6 text-center relative z-10">
+        <div class="flex justify-center items-center gap-4 mb-4 opacity-70">
+            <div class="h-[1px] w-12 md:w-24 bg-gradient-to-r from-transparent to-amber-400"></div>
+            <i class="ph-fill ph-star-four text-amber-300 text-sm"></i>
+            <div class="h-[1px] w-12 md:w-24 bg-gradient-to-l from-transparent to-amber-400"></div>
+        </div>
+        
+        <div class="mystic-float inline-block relative">
+            <h1 class="absolute inset-0 font-mythic text-4xl md:text-6xl lg:text-7xl font-normal tracking-[0.15em] text-amber-500 blur-xl opacity-50 leading-tight pointer-events-none">
+                The Goddesses<br>of Eclipse
+            </h1>
+            <h1 class="relative font-mythic text-4xl md:text-6xl lg:text-7xl font-normal tracking-[0.15em] mystic-shimmer leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                The Goddesses<br>of Eclipse
+            </h1>
+        </div>
+        
+        <div class="flex items-center justify-center gap-4 md:gap-6 mt-6 opacity-90">
+            <svg class="w-10 h-2 text-purple-400/50 animate-pulse" viewBox="0 0 100 20" fill="currentColor"><path d="M0,10 Q50,0 100,10 Q50,20 0,10 Z" /></svg>
+            
+            <p class="font-body italic text-base md:text-lg text-transparent bg-clip-text bg-gradient-to-r from-purple-200 via-white to-purple-200 tracking-[0.25em] font-light drop-shadow-[0_0_8px_rgba(216,180,254,0.4)]">
+                Find It Amongst Everything
+            </p>
+            
+            <svg class="w-10 h-2 text-purple-400/50 animate-pulse" viewBox="0 0 100 20" fill="currentColor"><path d="M0,10 Q50,0 100,10 Q50,20 0,10 Z" /></svg>
+        </div>
+    </header>
+
+    <section class="py-12 px-6 max-w-5xl mx-auto relative z-10">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 justify-items-center">
+            <a href="meanings.html" class="portal-container group">
+                <div class="portal-frame" id="portal-bg-1"></div>
+                <h3 class="portal-title">Card Meanings</h3>
+            </a>
+            <a href="daily.html" class="portal-container group">
+                <div class="portal-frame" id="portal-bg-2"></div>
+                <h3 class="portal-title">Card for the Day</h3>
+            </a>
+            <a href="#" class="portal-container group">
+                <div class="portal-frame" id="portal-bg-3"></div>
+                <h3 class="portal-title">Online Divination</h3>
+            </a>
+            <a href="#" class="portal-container group">
+                <div class="portal-frame" id="portal-bg-4"></div>
+                <h3 class="portal-title">Tarot Mechanism</h3>
+            </a>
+        </div>
+    </section>
+
+    <section class="py-20 relative z-10 w-full overflow-hidden">
+        <div class="text-center mb-10">
+            <div class="inline-block border-b border-amber-500/30 pb-2 mb-2">
+                <h2 class="font-mythic text-2xl text-amber-300 tracking-widest">The 48 Queens</h2>
+            </div>
+            <p class="font-body text-sm text-slate-400 italic">Drag with mouse or swipe to spin the wheel. Click to view full aspect.</p>
+        </div>
+        
+        <div class="carousel-container relative w-full h-[380px] flex items-center justify-center">
+            <div class="absolute left-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-r from-black via-black/80 to-transparent z-20 pointer-events-none"></div>
+            <div class="absolute right-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-l from-black via-black/80 to-transparent z-20 pointer-events-none"></div>
+            
+            <div id="lazy-susan-track" class="flex gap-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar px-[50vw] items-center h-full pb-8 cursor-grab active:cursor-grabbing">
+                </div>
+        </div>
+    </section>
+
+    <footer class="py-8 border-t border-white/10 text-center relative z-10 bg-black/60 backdrop-blur-sm mt-12">
+        <p class="font-mythic text-xs tracking-widest text-slate-500 uppercase">
+            © 2026 The Goddesses of Eclipse. All rights reserved. No copy claim.
+        </p>
+    </footer>
+
+    <div id="card-modal" class="fixed inset-0 bg-black/95 z-[100] hidden flex items-center justify-center backdrop-blur-xl transition-opacity opacity-0">
+        
+        <button onclick="closeModal()" class="absolute top-6 right-6 md:top-10 md:right-10 w-16 h-16 flex items-center justify-center rounded-full bg-slate-900 border border-amber-500/50 text-slate-400 hover:text-amber-300 hover:bg-black transition-all hover:scale-110 shadow-[0_0_20px_rgba(251,191,36,0.15)] z-[110]">
+            <i class="ph ph-x text-4xl"></i>
+        </button>
+        
+        <div class="relative inline-block max-h-[85vh] max-w-full text-center">
+            
+            <img id="modal-img" src="" alt="Card" class="max-h-[85vh] w-auto max-w-full object-contain rounded-2xl border-2 border-amber-500/40 shadow-[0_0_60px_rgba(251,191,36,0.3)] mx-auto">
+            
+            <div class="absolute bottom-6 md:bottom-10 w-full flex justify-center pointer-events-none px-4">
+                <h3 id="modal-char-name" class="font-mythic text-3xl md:text-4xl font-normal tracking-[0.2em] mystic-shimmer ethereal-glow m-0"></h3>
+            </div>
+            
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
