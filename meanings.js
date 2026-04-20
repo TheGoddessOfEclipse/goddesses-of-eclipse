@@ -190,8 +190,11 @@ function loadLore(card) {
         document.getElementById('display-path').innerText = card.path;
         document.getElementById('display-story').innerText = card.story;
         
+        // Mobile Specific Data Population
         document.getElementById('mobile-display-char').innerText = card.char;
         document.getElementById('mobile-display-title').innerText = card.title;
+        document.getElementById('mobile-display-duality').innerText = card.duality; // NEW
+        document.getElementById('mobile-display-path').innerText = card.path;       // NEW
         
         // --- DYNAMIC COLOR THEME ---
         const themeColor = card.color;
@@ -201,10 +204,11 @@ function loadLore(card) {
         document.getElementById('display-title').style.color = themeColor;
         document.getElementById('mobile-display-title').style.color = themeColor;
         document.getElementById('mobile-display-char').style.color = themeColor;
+        document.getElementById('mobile-display-path').style.color = themeColor; // NEW
         
         // 2. Colorize the giant metallic character name gradient & shadow
         document.getElementById('display-char').style.backgroundImage = `linear-gradient(to bottom, #ffffff, ${themeColor})`;
-        document.getElementById('display-char').style.filter = `drop-shadow(0 0 10px ${themeColor}80)`; // 80 adds 50% opacity in hex
+        document.getElementById('display-char').style.filter = `drop-shadow(0 0 10px ${themeColor}80)`; 
         
         // 3. Find all the tiny labels ("The Concept", "The Path", etc.) and colorize them
         const smallLabels = centerStage.querySelectorAll('p.text-amber-500');
@@ -214,8 +218,8 @@ function loadLore(card) {
 
         // 4. Colorize the Card Border and Glow
         const displayImg = document.getElementById('display-img');
-        displayImg.style.borderColor = `${themeColor}66`; // 40% opacity border
-        displayImg.style.boxShadow = `0 0 40px ${themeColor}4D`; // 30% opacity glow
+        displayImg.style.borderColor = `${themeColor}66`; 
+        displayImg.style.boxShadow = `0 0 40px ${themeColor}4D`; 
 
         // 5. Colorize the borders of the Lore Panels
         document.getElementById('panel-left').style.borderColor = `${themeColor}66`;

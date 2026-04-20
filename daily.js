@@ -126,8 +126,11 @@ let orbs = [];
 const orbColors = ['#fde68a', '#38bdf8', '#a855f7', '#fbbf24', '#f43f5e'];
 
 function resizeCanvas() {
-    width = lightsCanvas.width = window.innerWidth;
-    height = lightsCanvas.height = window.innerHeight;
+    // getBoundingClientRect forces the math to use the exact physical 
+    // dimensions of the canvas box, ignoring the tricky mobile URL bar.
+    const rect = lightsCanvas.getBoundingClientRect();
+    width = lightsCanvas.width = rect.width;
+    height = lightsCanvas.height = rect.height;
 }
 
 class MagicOrb {
