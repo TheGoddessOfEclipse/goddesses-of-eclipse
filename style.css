@@ -246,3 +246,49 @@ body {
     pointer-events: auto !important;
     transform: scale(1) !important;
 }
+/* ========================================================
+   MOBILE RESPONSIVE DESIGN (RWD)
+======================================================== */
+
+/* These rules ONLY apply to screens smaller than 768px (Phones) */
+@media (max-width: 768px) {
+    
+    /* 1. Shrink the Lobby Portals */
+    .portal-frame {
+        width: 80px;
+        height: 80px;
+    }
+    .portal-title {
+        font-size: 0.7rem;
+        margin-top: 1rem;
+    }
+
+    /* 2. Scale down the giant Celestial Orbit mathematically */
+    #orbit-container {
+        /* This shrinks the 850px ring down to fit perfectly on a phone screen */
+        transform: scale(0.45); 
+        transform-origin: center center;
+    }
+
+    /* 3. Shrink the Central Cards when enlarged */
+    #center-card-wrapper {
+        width: 160px !important;
+    }
+    #center-card-wrapper img {
+        max-height: 50vh !important;
+    }
+
+    /* 4. Shrink the Daily Draw Card */
+    #daily-card-border {
+        width: 180px !important;
+        margin-bottom: 1rem;
+    }
+
+    /* 5. Make the mobile lore text slightly more compact */
+    #panel-right {
+        padding: 1.25rem !important;
+    }
+    #daily-panel {
+        padding: 1.5rem !important;
+    }
+}
