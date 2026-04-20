@@ -126,8 +126,10 @@ let orbs = [];
 const orbColors = ['#fde68a', '#38bdf8', '#a855f7', '#fbbf24', '#f43f5e'];
 
 function resizeCanvas() {
-    width = lightsCanvas.width = window.innerWidth;
-    height = lightsCanvas.height = window.innerHeight;
+    // clientWidth and clientHeight ignore the mobile browser's bulky URL bars
+    // ensuring the absolute dead center of the screen is calculated perfectly.
+    width = lightsCanvas.width = lightsCanvas.clientWidth;
+    height = lightsCanvas.height = lightsCanvas.clientHeight;
 }
 
 class MagicOrb {

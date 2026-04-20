@@ -144,6 +144,7 @@ body {
     border-radius: 50%;
     /* Keep the cards upright while the ring turns */
     transform-origin: center center;
+    touch-action: none;
 }
 
 .orbit-card {

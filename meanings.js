@@ -112,13 +112,12 @@ setTimeout(() => {
 
 }, 150); // Slight delay after page load to ensure smooth rendering
 
-// 3. Mathematical Drag Logic (Upgraded for Touch & Mouse)
+// 3. Mathematical Drag Logic (Using Modern Pointer Events)
 let isDragging = false;
 let startAngle = 0;
 let ringStartRotation = 0;
 const orbitContainer = document.getElementById('orbit-container');
 
-// Get center coordinates of the screen
 function getCenterPoint() {
     const rect = orbitContainer.getBoundingClientRect();
     return {
@@ -127,67 +126,51 @@ function getCenterPoint() {
     };
 }
 
-// Universal helper to get X/Y coordinates from either a mouse or a finger
-function getPointerEvent(e) {
-    return e.touches ? e.touches[0] : e;
-}
-
 function startDrag(e) {
     isDragging = true;
-    ring.style.transition = 'none'; // Remove CSS transition while actively dragging
+    ring.style.transition = 'none';
     
-    const pointer = getPointerEvent(e);
+    // PointerEvents give us pageX/pageY directly for both mouse and touch!
     const center = getCenterPoint();
-    // Calculate the mathematical angle relative to center
-    startAngle = Math.atan2(pointer.pageY - center.y, pointer.pageX - center.x) * (180 / Math.PI);
+    startAngle = Math.atan2(e.pageY - center.y, e.pageX - center.x) * (180 / Math.PI);
     ringStartRotation = currentRotation;
+    
+    // This "captures" your finger so the wheel keeps spinning even if your finger slides slightly off the ring
+    ring.setPointerCapture(e.pointerId);
 }
 
 function doDrag(e) {
     if (!isDragging) return;
+    e.preventDefault(); // Extra safety to prevent scrolling
     
-    // This stops the whole webpage from scrolling up/down while you try to spin the wheel
-    if (e.cancelable) {
-        e.preventDefault();
-    }
-    
-    const pointer = getPointerEvent(e);
     const center = getCenterPoint();
-    const currentAngle = Math.atan2(pointer.pageY - center.y, pointer.pageX - center.x) * (180 / Math.PI);
+    const currentAngle = Math.atan2(e.pageY - center.y, e.pageX - center.x) * (180 / Math.PI);
     
-    // Calculate the difference in angle
     let deltaAngle = currentAngle - startAngle;
     currentRotation = ringStartRotation + deltaAngle;
     
     updateRingRotation();
 }
 
-function stopDrag() {
+function stopDrag(e) {
     if (isDragging) {
         isDragging = false;
         ring.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        ring.releasePointerCapture(e.pointerId);
     }
 }
 
-// Attach MOUSE events
-ring.addEventListener('mousedown', startDrag);
-window.addEventListener('mousemove', doDrag, { passive: false });
-window.addEventListener('mouseup', stopDrag);
-
-// Attach TOUCH events (for phones and tablets)
-ring.addEventListener('touchstart', startDrag, { passive: false });
-window.addEventListener('touchmove', doDrag, { passive: false });
-window.addEventListener('touchend', stopDrag);
+// Attach Universal Pointer Events (Handles Mouse, Touch, and Stylus automatically)
+ring.addEventListener('pointerdown', startDrag);
+window.addEventListener('pointermove', doDrag, { passive: false });
+window.addEventListener('pointerup', stopDrag);
+window.addEventListener('pointercancel', stopDrag);
 
 function updateRingRotation() {
-    // Spin the massive ring
     ring.style.transform = `rotate(${currentRotation}deg)`;
-    
-    // Keep the cards perfectly upright by dynamically counter-rotating them
     const cards = document.querySelectorAll('.orbit-card');
     cards.forEach(card => {
         const baseAngle = parseFloat(card.dataset.angle);
-        // rotate out + translate + counter-rotate base + counter-rotate the ring's current rotation
         card.style.transform = `rotate(${baseAngle}deg) translateY(-${radius}px) rotate(-${baseAngle + currentRotation}deg)`;
     });
 }
