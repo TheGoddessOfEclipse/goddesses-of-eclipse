@@ -78,10 +78,10 @@ body {
 }
 
 /* Add your background URLs here */
-#portal-bg-1 { background-image: url('images/portal-blue.PNG'); }
+#portal-bg-1 { background-image: url('images/portal-blue.png'); }
 #portal-bg-2 { background-image: url('images/portal-red.png'); }
-#portal-bg-3 { background-image: url('images/portal-green.PNG'); }
-#portal-bg-4 { background-image: url('images/portal-yellow.PNG'); }
+#portal-bg-3 { background-image: url('images/portal-green.png'); }
+#portal-bg-4 { background-image: url('images/portal-yellow.png'); }
 
 /* ========================================================
    LAZY-SUSAN CAROUSEL
