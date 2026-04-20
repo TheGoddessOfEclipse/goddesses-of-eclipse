@@ -112,7 +112,7 @@ setTimeout(() => {
 
 }, 150); // Slight delay after page load to ensure smooth rendering
 
-// 3. Mathematical Drag Logic (Using Atan2 for perfect circle rotation)
+// 3. Mathematical Drag Logic (Upgraded for Touch & Mouse)
 let isDragging = false;
 let startAngle = 0;
 let ringStartRotation = 0;
@@ -127,36 +127,57 @@ function getCenterPoint() {
     };
 }
 
-ring.addEventListener('mousedown', (e) => {
+// Universal helper to get X/Y coordinates from either a mouse or a finger
+function getPointerEvent(e) {
+    return e.touches ? e.touches[0] : e;
+}
+
+function startDrag(e) {
     isDragging = true;
     ring.style.transition = 'none'; // Remove CSS transition while actively dragging
     
+    const pointer = getPointerEvent(e);
     const center = getCenterPoint();
-    // Calculate the mathematical angle of the mouse relative to center
-    startAngle = Math.atan2(e.pageY - center.y, e.pageX - center.x) * (180 / Math.PI);
+    // Calculate the mathematical angle relative to center
+    startAngle = Math.atan2(pointer.pageY - center.y, pointer.pageX - center.x) * (180 / Math.PI);
     ringStartRotation = currentRotation;
-});
+}
 
-window.addEventListener('mousemove', (e) => {
+function doDrag(e) {
     if (!isDragging) return;
-    e.preventDefault();
     
+    // This stops the whole webpage from scrolling up/down while you try to spin the wheel
+    if (e.cancelable) {
+        e.preventDefault();
+    }
+    
+    const pointer = getPointerEvent(e);
     const center = getCenterPoint();
-    const currentMouseAngle = Math.atan2(e.pageY - center.y, e.pageX - center.x) * (180 / Math.PI);
+    const currentAngle = Math.atan2(pointer.pageY - center.y, pointer.pageX - center.x) * (180 / Math.PI);
     
     // Calculate the difference in angle
-    let deltaAngle = currentMouseAngle - startAngle;
+    let deltaAngle = currentAngle - startAngle;
     currentRotation = ringStartRotation + deltaAngle;
     
     updateRingRotation();
-});
+}
 
-window.addEventListener('mouseup', () => {
+function stopDrag() {
     if (isDragging) {
         isDragging = false;
         ring.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
     }
-});
+}
+
+// Attach MOUSE events
+ring.addEventListener('mousedown', startDrag);
+window.addEventListener('mousemove', doDrag, { passive: false });
+window.addEventListener('mouseup', stopDrag);
+
+// Attach TOUCH events (for phones and tablets)
+ring.addEventListener('touchstart', startDrag, { passive: false });
+window.addEventListener('touchmove', doDrag, { passive: false });
+window.addEventListener('touchend', stopDrag);
 
 function updateRingRotation() {
     // Spin the massive ring
