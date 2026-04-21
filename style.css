@@ -1,5 +1,9 @@
-body {
+html, body {
     background-color: #000000;
+    /* THESE THREE LINES FIX THE MOBILE ZOOM/CENTERING BUG */
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
 }
 
 .font-mythic { font-family: 'Cinzel', serif; }

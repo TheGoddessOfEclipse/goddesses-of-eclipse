@@ -193,8 +193,8 @@ function loadLore(card) {
         // Mobile Specific Data Population
         document.getElementById('mobile-display-char').innerText = card.char;
         document.getElementById('mobile-display-title').innerText = card.title;
-        document.getElementById('mobile-display-duality').innerText = card.duality; // NEW
-        document.getElementById('mobile-display-path').innerText = card.path;       // NEW
+        document.getElementById('mobile-display-duality').innerText = card.duality; /* NEW */
+        document.getElementById('mobile-display-path').innerText = card.path;       /* NEW */
         
         // --- DYNAMIC COLOR THEME ---
         const themeColor = card.color;
@@ -204,7 +204,8 @@ function loadLore(card) {
         document.getElementById('display-title').style.color = themeColor;
         document.getElementById('mobile-display-title').style.color = themeColor;
         document.getElementById('mobile-display-char').style.color = themeColor;
-        document.getElementById('mobile-display-path').style.color = themeColor; // NEW
+        document.getElementById('mobile-display-path').style.color = themeColor;    /* NEW */
+        document.getElementById('mobile-display-duality').style.color = themeColor; /* NEW */
         
         // 2. Colorize the giant metallic character name gradient & shadow
         document.getElementById('display-char').style.backgroundImage = `linear-gradient(to bottom, #ffffff, ${themeColor})`;
