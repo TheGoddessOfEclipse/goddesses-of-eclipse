@@ -58,6 +58,11 @@ const meaningsData = [
 const ring = document.getElementById('orbit-ring');
 const radius = 425; // Half of our 850px ring size
 let currentRotation = 0;
+let isDragging = false;
+let hasDragged = false; // NEW: tracks if we are spinning or clicking
+let startAngle = 0;
+let ringStartRotation = 0;
+const orbitContainer = document.getElementById('orbit-container');
 
 // Temporarily disable dragging while the entrance animation plays
 ring.style.pointerEvents = 'none';
@@ -69,15 +74,19 @@ meaningsData.forEach((card, index) => {
     
     const angle = (360 / meaningsData.length) * index;
     
-    // STARTING STATE: Hidden at the center, scaled to 0, and rotated back 180 degrees
     el.style.transform = `rotate(${angle - 180}deg) translateY(0px) rotate(-${angle - 180}deg) scale(0)`;
     el.style.opacity = '0';
-    
     el.dataset.angle = angle;
     el.innerHTML = `<img src="${card.img}" alt="${card.char}">`;
     
-    // Click Event to load Lore into Center Stage
-    el.addEventListener('click', () => loadLore(card));
+    // Click Event (Now protected from accidental dragging clicks!)
+    el.addEventListener('click', (e) => {
+        if (hasDragged) {
+            e.preventDefault();
+            return; // Ignore click if the user was just spinning the wheel
+        }
+        loadLore(card);
+    });
     
     ring.appendChild(el);
 });
@@ -85,39 +94,26 @@ meaningsData.forEach((card, index) => {
 // TRIGGER THE FLY-OUT ANIMATION
 setTimeout(() => {
     const cards = document.querySelectorAll('.orbit-card');
-    
     cards.forEach((card, index) => {
         const angle = parseFloat(card.dataset.angle);
-        
-        // Stagger the deal so they fly out one by one in a spiral
         const delay = index * 0.04; 
         
-        // Custom animation: The bezier curve creates a slight "bounce" when they hit the outer ring
         card.style.transition = `transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) ${delay}s, opacity 1s ease-out ${delay}s`;
-        
-        // FINAL STATE: Full orbit radius, faded in
         card.style.transform = `rotate(${angle}deg) translateY(-${radius}px) rotate(-${angle}deg) scale(1)`;
         card.style.opacity = '1';
         
-        // Clean up the inline transitions after the animation finishes so normal hover/drag works smoothly
         setTimeout(() => {
             card.style.transition = 'filter 0.3s, border-color 0.3s, transform 0.3s';
         }, (1.5 + delay) * 1000 + 100);
     });
 
-    // Re-enable dragging the ring once the final card finishes moving
     setTimeout(() => {
         ring.style.pointerEvents = 'auto';
     }, (1.5 + (48 * 0.04)) * 1000 + 200);
 
-}, 150); // Slight delay after page load to ensure smooth rendering
+}, 150); 
 
-// 3. Mathematical Drag Logic (Using Modern Pointer Events)
-let isDragging = false;
-let startAngle = 0;
-let ringStartRotation = 0;
-const orbitContainer = document.getElementById('orbit-container');
-
+// 3. Mathematical Drag Logic (Fixed click swallowing)
 function getCenterPoint() {
     const rect = orbitContainer.getBoundingClientRect();
     return {
@@ -128,39 +124,38 @@ function getCenterPoint() {
 
 function startDrag(e) {
     isDragging = true;
+    hasDragged = false; // Reset our tracker when touch/click starts
     ring.style.transition = 'none';
     
-    // PointerEvents give us pageX/pageY directly for both mouse and touch!
     const center = getCenterPoint();
     startAngle = Math.atan2(e.pageY - center.y, e.pageX - center.x) * (180 / Math.PI);
     ringStartRotation = currentRotation;
-    
-    // This "captures" your finger so the wheel keeps spinning even if your finger slides slightly off the ring
-    ring.setPointerCapture(e.pointerId);
 }
 
 function doDrag(e) {
     if (!isDragging) return;
-    e.preventDefault(); // Extra safety to prevent scrolling
     
     const center = getCenterPoint();
     const currentAngle = Math.atan2(e.pageY - center.y, e.pageX - center.x) * (180 / Math.PI);
-    
     let deltaAngle = currentAngle - startAngle;
-    currentRotation = ringStartRotation + deltaAngle;
     
+    // If the wheel moved more than 2 degrees, count it as a drag, not a click!
+    if (Math.abs(deltaAngle) > 2) {
+        hasDragged = true; 
+    }
+    
+    currentRotation = ringStartRotation + deltaAngle;
     updateRingRotation();
 }
 
-function stopDrag(e) {
+function stopDrag() {
     if (isDragging) {
         isDragging = false;
         ring.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        ring.releasePointerCapture(e.pointerId);
     }
 }
 
-// Attach Universal Pointer Events (Handles Mouse, Touch, and Stylus automatically)
+// Attach Universal Pointer Events
 ring.addEventListener('pointerdown', startDrag);
 window.addEventListener('pointermove', doDrag, { passive: false });
 window.addEventListener('pointerup', stopDrag);
