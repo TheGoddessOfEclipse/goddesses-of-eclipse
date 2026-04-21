@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Tome of Arcalis | The Goddesses of Eclipse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-black min-h-screen font-body overflow-x-hidden relative selection:bg-purple-500/30">
+
+    <canvas id="particle-canvas" class="fixed inset-0 z-0 pointer-events-none"></canvas>
+
+    <nav class="absolute top-6 left-8 z-50">
+        <a href="index.html" class="flex items-center gap-2 text-amber-500 hover:text-amber-300 transition-colors font-mythic text-sm tracking-widest uppercase">
+            <i class="ph ph-arrow-left text-xl"></i> Close Tome
+        </a>
+    </nav>
+
+    <div class="relative w-full max-w-5xl mx-auto pt-24 pb-24 px-4 md:px-12 z-10">
+        
+        <div class="book-page rounded-sm border border-amber-900/30 p-8 md:p-16 relative overflow-hidden">
+            
+            <div class="absolute -right-20 -top-20 w-96 h-96 magic-circle-outer opacity-20 pointer-events-none"></div>
+            <div class="absolute -left-20 top-1/3 w-64 h-64 magic-circle-inner opacity-20 pointer-events-none"></div>
+
+            <div class="text-center mb-16 relative z-10 slow-float">
+                <h1 class="font-mythic text-4xl md:text-6xl text-transparent bg-clip-text bg-gradient-to-b from-amber-100 to-amber-600 tracking-widest mb-6 drop-shadow-[0_0_15px_rgba(251,191,36,0.2)]">The Tome of Arcalis</h1>
+                <div class="flex justify-center items-center gap-4 opacity-50">
+                    <div class="h-[1px] w-24 bg-gradient-to-r from-transparent to-amber-500"></div>
+                    <i class="ph-fill ph-moon-stars text-amber-400 text-lg"></i>
+                    <div class="h-[1px] w-24 bg-gradient-to-l from-transparent to-amber-500"></div>
+                </div>
+            </div>
+
+            <div class="max-w-md mx-auto mb-20 p-6 border border-amber-500/20 bg-black/40 backdrop-blur-sm rounded-lg">
+                <h3 class="font-mythic text-xl text-amber-400 mb-4 tracking-widest text-center border-b border-amber-500/20 pb-2">Table of Contents</h3>
+                <ul class="space-y-3 font-mythic text-sm tracking-wider text-amber-100/70">
+                    <li><a href="#chapter1" class="hover:text-amber-300 transition-colors flex justify-between"><span>Chapter I</span> <span>Who are these Goddesses?</span></a></li>
+                    <li><a href="#chapter2" class="hover:text-amber-300 transition-colors flex justify-between"><span>Chapter II</span> <span>The System of the Deck</span></a></li>
+                    <li><a href="#chapter3" class="hover:text-amber-300 transition-colors flex justify-between"><span>Chapter III</span> <span>The Ritual of Eclipse</span></a></li>
+                    <li><a href="#chapter4" class="hover:text-amber-300 transition-colors flex justify-between"><span>Chapter IV</span> <span>Dos, Don'ts, and Warnings</span></a></li>
+                </ul>
+            </div>
+
+            <section id="chapter1" class="mb-20 relative z-10 overflow-hidden rounded-xl p-4">
+                <i class="ph-fill ph-spiral lore-figure lore-drift-3 text-[30rem] -right-20 -top-10 text-purple-300"></i>
+                <i class="ph-fill ph-sparkle lore-figure lore-drift-1 text-[15rem] -left-10 bottom-0 text-amber-300"></i>
+
+                <div class="relative-content">
+                    <h2 class="font-mythic text-2xl md:text-3xl text-amber-500 tracking-widest mb-6 drop-shadow-md">Chapter I: Who are these Goddesses?</h2>
+                    <div class="handwritten text-lg md:text-xl space-y-6">
+                        <p>Beneath the clamor of the real world lies another layer of truth, invisible to the naked eye. Just as the most profound starlight only reveals itself in the fleeting moment of an eclipse—when the sun's blinding rays are obscured by shadow—there exists a realm suspended between reality and fantasy. Standing within this shadow are 48 powerful entities. We call them <span class="enchanted-ink">The Goddesses of Eclipse</span>.</p>
+                        
+                        <h4 class="font-mythic text-lg text-amber-300 not-italic tracking-widest mt-8 mb-2">Who are they?</h4>
+                        <p>They were not born as untouchable deities. Long ago, they walked the mortal realm just like you and me. They experienced the raw reality of life and death, tasted the heartbreak of betrayal, and survived the abyss of despair. Or perhaps, their souls simply burned with an innate, extreme, and uncompromising nature. These profound marks of suffering and their uniquely forged souls created a resonance powerful enough to shake the stars.</p>
+                        <p>At the dawn of the universe, there were <strong class="text-amber-200">48 primal cosmic forces</strong>. Because the formless laws of the universe require a tangible vessel, these 48 forces chose their souls to become the <span class="enchanted-ink">Avatars of the Cosmos</span>. Today, they live incognito among us. Yet, beneath their mortal guise flows a divinity capable of overturning reality itself.</p>
+
+                        <h4 class="font-mythic text-lg text-amber-300 not-italic tracking-widest mt-8 mb-2">Why do they guide you?</h4>
+                        <p>While traditional tarot depicts abstract fate, the Tarot of Eclipse depicts <strong class="text-amber-200">forged souls</strong>. They understand human fragility, greed, fear, and desire better than any high god ever could. When you draw a card, you are not reading a cold prophecy; you are engaging in a spiritual dialogue with a Goddess who has walked through the valley of the shadow of death and was ultimately crowned by the universe.</p>
+                        <p>The Goddesses are ready to reach out to you from the shadows. This deck shall be your bridge to their world of <span class="enchanted-ink">"Arcalis."</span></p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="chapter2" class="mb-20 relative z-10 overflow-hidden rounded-xl p-4">
+                <i class="ph-fill ph-scales lore-figure lore-drift-2 text-[25rem] -left-20 top-20 text-teal-300"></i>
+                <i class="ph-fill ph-hourglass-high lore-figure lore-drift-1 text-[20rem] -right-10 bottom-10 text-rose-300"></i>
+
+                <div class="relative-content">
+                    <h2 class="font-mythic text-2xl md:text-3xl text-amber-500 tracking-widest mb-6 drop-shadow-md">Chapter II: The System of the Deck</h2>
+                    <div class="handwritten text-lg md:text-xl space-y-6 mb-8">
+                        <p>When you hold the Tarot of Eclipse, you will realize it is unlike any traditional deck. It abandons convoluted frameworks, refining itself into exactly <strong class="text-amber-200">48 cards</strong>. Every card represents the true form and soul imprint of a Goddess. To accurately decode their messages, this deck utilizes a <span class="enchanted-ink">Dual Interpretation System</span>.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8 mb-8 not-italic relative z-10">
+                        <div class="bg-black/60 border border-teal-500/30 p-6 rounded-lg backdrop-blur-md">
+                            <h3 class="font-mythic text-xl text-teal-400 mb-4 tracking-widest border-b border-teal-500/20 pb-2">I. The Microscopic System:<br><span class="text-sm text-teal-200/70">The Mortal Trajectory</span></h3>
+                            <p class="font-body italic text-slate-300 mb-4 text-sm">Focuses on the "Human"—the experiences of flesh and blood.</p>
+                            <ul class="space-y-4 text-sm text-slate-400">
+                                <li><strong class="text-teal-300">Cards 1–24 (Progression):</strong> Represents the "process". The growing pains, setbacks, and wisdom accumulated. <em class="text-slate-300">"What phase of life are you currently in?"</em></li>
+                                <li><strong class="text-teal-300">Cards 25–48 (Direction):</strong> Represents the "choices". Decisions made at crossroads and the ultimate trajectory. <em class="text-slate-300">"Where is your specific goal?"</em></li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-black/60 border border-purple-500/30 p-6 rounded-lg backdrop-blur-md">
+                            <h3 class="font-mythic text-xl text-purple-400 mb-4 tracking-widest border-b border-purple-500/20 pb-2">II. The Macroscopic System:<br><span class="text-sm text-purple-200/70">The Abstract Cosmic Laws</span></h3>
+                            <p class="font-body italic text-slate-300 mb-4 text-sm">Focuses on the "Divine"—elevating to a universal height.</p>
+                            <p class="text-sm text-slate-400 leading-relaxed mb-4">Focuses on the abstract concepts these Goddesses represent after being chosen by the cosmos. They embody pure laws maintaining the balance of the universe (e.g., "Silence", "Frenzy").</p>
+                            <p class="text-sm text-slate-400 leading-relaxed">It reveals what <span class="enchanted-ink">cosmic concept</span> you must introduce to break a stalemate and restore balance.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="chapter3" class="mb-20 relative z-10">
+                <h2 class="font-mythic text-2xl md:text-3xl text-amber-500 tracking-widest mb-6 drop-shadow-md">Chapter III: The Ritual of Eclipse</h2>
+                
+                <h4 class="font-mythic text-xl text-amber-300 tracking-widest mb-4">I. The Shuffling Ritual</h4>
+                <div id="ritual-steps-container" class="handwritten text-lg space-y-4 mb-12 pl-4 border-l-2 border-amber-900/50">
+                    <p class="ritual-step"><strong class="text-amber-200 font-mythic not-italic">1. Enter the Receptive State:</strong> Clear away the trivialities. Ensure you are in a pious state for accurate frequency resonance.</p>
+                    <p class="ritual-step"><strong class="text-amber-200 font-mythic not-italic">2. State the Question:</strong> The Querent must clearly communicate a specific, focused question.</p>
+                    <p class="ritual-step"><strong class="text-amber-200 font-mythic not-italic">3. The Personal Shuffle:</strong> The Querent must shuffle the cards themselves while meditating on the question. Stop when intuition commands it.</p>
+                    <p class="ritual-step"><strong class="text-amber-200 font-mythic not-italic">4. The Transfer & Draw:</strong> Hand the deck to the Reader to lay out the cards.</p>
+                </div>
+
+                <h4 class="font-mythic text-xl text-amber-300 tracking-widest mb-8">II. The Spreads of Eclipse</h4>
+                
+                <div class="space-y-12 not-italic">
+                    
+                    <div class="flex flex-col md:flex-row items-center gap-8 bg-black/40 p-8 rounded-xl border border-purple-500/30 shadow-[0_0_30px_rgba(168,85,247,0.1)] relative overflow-hidden">
+                        <div class="flex-none w-64 h-64 relative flex items-center justify-center" id="table-point">
+                            
+                            <div class="tarot-card 3d-card" data-spread="point" data-pos="center" style="opacity: 0; position: absolute;">
+                                <div class="card-inner">
+                                    <div class="card-front bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center">
+                                        <i class="ph-fill ph-moon-stars text-amber-500/50 text-2xl"></i>
+                                    </div>
+                                    <div class="card-back bg-purple-900/80 border border-purple-400 flex items-center justify-center shadow-[0_0_20px_rgba(168,85,247,0.6)] text-center p-2">
+                                        <span class="text-[12px] text-white font-mythic font-bold tracking-widest drop-shadow-md">CORE</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="md:ml-4 relative z-10">
+                            <h5 class="font-mythic text-xl text-amber-200 mb-2">1. The Point Spread</h5>
+                            <p class="text-slate-400 text-sm"><strong class="text-white">Structure:</strong> One card.<br><strong class="text-white">Purpose:</strong> Provides the most direct, core advice. Ideal for daily guidance or urgent, single-issue dilemmas.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row items-center gap-8 bg-black/40 p-8 rounded-xl border border-purple-500/30 shadow-[0_0_30px_rgba(168,85,247,0.1)] relative overflow-hidden">
+                        <div class="flex-none w-64 h-64 relative flex items-center justify-center" id="table-line">
+                            
+                            <div class="tarot-card 3d-card" data-spread="line" data-pos="left" style="opacity: 0; position: absolute;">
+                                <div class="card-inner">
+                                    <div class="card-front bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center">
+                                        <i class="ph-fill ph-moon-stars text-amber-500/50 text-2xl"></i>
+                                    </div>
+                                    <div class="card-back bg-slate-900/80 border border-slate-500/60 flex items-center justify-center text-center p-2">
+                                        <span class="text-[9px] text-slate-300 uppercase tracking-widest">PAST</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="tarot-card 3d-card" data-spread="line" data-pos="center" style="opacity: 0; position: absolute;">
+                                <div class="card-inner">
+                                    <div class="card-front bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center">
+                                        <i class="ph-fill ph-moon-stars text-amber-500/50 text-2xl"></i>
+                                    </div>
+                                    <div class="card-back bg-purple-900/80 border border-purple-400 flex items-center justify-center shadow-[0_0_15px_rgba(168,85,247,0.4)] text-center p-2">
+                                        <span class="text-[9px] text-white font-bold uppercase tracking-widest">PRESENT</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="tarot-card 3d-card" data-spread="line" data-pos="right" style="opacity: 0; position: absolute;">
+                                <div class="card-inner">
+                                    <div class="card-front bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center">
+                                        <i class="ph-fill ph-moon-stars text-amber-500/50 text-2xl"></i>
+                                    </div>
+                                    <div class="card-back bg-slate-900/80 border border-slate-500/60 flex items-center justify-center text-center p-2">
+                                        <span class="text-[9px] text-slate-300 uppercase tracking-widest">FUTURE</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="md:ml-4 relative z-10">
+                            <h5 class="font-mythic text-xl text-amber-200 mb-2">2. The Line Spread</h5>
+                            <p class="text-slate-400 text-sm"><strong class="text-white">Structure:</strong> Three cards laid horizontally.<br><strong class="text-white">Purpose:</strong> Reveals the cause and effect of the issue through the linear flow of time, and its ultimate trend.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row items-center gap-8 bg-black/40 p-8 rounded-xl border border-purple-500/30 shadow-[0_0_30px_rgba(168,85,247,0.1)] relative overflow-hidden">
+                        <div class="flex-none w-64 h-64 relative flex items-center justify-center" id="table-cross">
+                            
+                            <div class="tarot-card 3d-card" data-spread="cross" data-pos="top" style="opacity: 0; position: absolute;">
+                                <div class="card-inner">
+                                    <div class="card-front bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center">
+                                        <i class="ph-fill ph-moon-stars text-amber-500/50 text-2xl"></i>
+                                    </div>
+                                    <div class="card-back bg-rose-950/80 border border-rose-500/60 flex flex-col items-center justify-center text-center p-2">
+                                        <span class="text-[8px] text-rose-300 uppercase tracking-widest">Uncontrollable<br>Internal</span>
+                                        <i class="ph ph-arrow-down text-amber-400 mt-1 animate-bounce"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tarot-card 3d-card" data-spread="cross" data-pos="bottom" style="opacity: 0; position: absolute;">
+                                <div class="card-inner">
+                                    <div class="card-front bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center">
+                                        <i class="ph-fill ph-moon-stars text-amber-500/50 text-2xl"></i>
+                                    </div>
+                                    <div class="card-back bg-teal-950/80 border border-teal-500/60 flex flex-col items-center justify-center text-center p-2">
+                                        <i class="ph ph-arrow-up text-amber-400 mb-1 animate-bounce"></i>
+                                        <span class="text-[8px] text-teal-300 uppercase tracking-widest">Controllable<br>Internal</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tarot-card 3d-card" data-spread="cross" data-pos="left" style="opacity: 0; position: absolute;">
+                                <div class="card-inner">
+                                    <div class="card-front bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center">
+                                        <i class="ph-fill ph-moon-stars text-amber-500/50 text-2xl"></i>
+                                    </div>
+                                    <div class="card-back bg-rose-950/80 border border-rose-500/60 flex flex-col items-center justify-center text-center p-1">
+                                        <span class="text-[7px] text-rose-300 uppercase tracking-widest">Uncontrollable<br>External</span>
+                                        <i class="ph ph-arrow-right text-amber-400 mt-1 animate-bounce"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tarot-card 3d-card" data-spread="cross" data-pos="right" style="opacity: 0; position: absolute;">
+                                <div class="card-inner">
+                                    <div class="card-front bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center">
+                                        <i class="ph-fill ph-moon-stars text-amber-500/50 text-2xl"></i>
+                                    </div>
+                                    <div class="card-back bg-teal-950/80 border border-teal-500/60 flex flex-col items-center justify-center text-center p-1">
+                                        <span class="text-[7px] text-teal-300 uppercase tracking-widest">Controllable<br>External</span>
+                                        <i class="ph ph-arrow-left text-amber-400 mt-1 animate-bounce"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tarot-card 3d-card" data-spread="cross" data-pos="center" style="opacity: 0; position: absolute;">
+                                <div class="card-inner">
+                                    <div class="card-front bg-black border border-purple-500/60 shadow-[0_0_15px_rgba(168,85,247,0.4)] flex items-center justify-center">
+                                        <i class="ph-fill ph-sparkle text-purple-400 text-2xl"></i>
+                                    </div>
+                                    <div class="card-back bg-purple-900/80 border border-purple-400 flex items-center justify-center shadow-[0_0_20px_rgba(168,85,247,0.6)] text-center">
+                                        <span class="text-[12px] text-white font-mythic font-bold tracking-widest drop-shadow-md">ROOT</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="md:ml-4 relative z-10">
+                            <h5 class="font-mythic text-xl text-amber-200 mb-2">3. The Surface Spread</h5>
+                            <p class="text-slate-400 text-sm mb-4"><strong class="text-white">Structure:</strong> Watch as the universe deals the cross. Observe how the energy flows based on the orientation of the cards.</p>
+                            <div class="bg-black/50 p-4 border-l-2 border-amber-500 rounded">
+                                <p class="text-amber-400 text-xs font-mythic tracking-widest uppercase mb-1">The Law of Orientation:</p>
+                                <p class="text-slate-300 text-sm italic">Cards facing the Center Card are <strong class="text-teal-300">Upright</strong>. Cards facing away are <strong class="text-rose-300">Reversed</strong>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="chapter4" class="relative z-10">
+                <h2 class="font-mythic text-2xl md:text-3xl text-amber-500 tracking-widest mb-8 drop-shadow-md">Chapter IV: Dos, Don'ts, and Warnings</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8 mb-12 not-italic">
+                    <div class="border border-emerald-500/20 bg-emerald-950/20 p-6 rounded-lg">
+                        <h3 class="font-mythic text-xl text-emerald-400 mb-4 tracking-widest border-b border-emerald-500/20 pb-2">Dos (Follow the Laws)</h3>
+                        <ul class="space-y-4 text-sm text-emerald-100/70">
+                            <li><strong class="text-emerald-300">Respect the Reading:</strong> Accept the revealed truth entirely with a humble mind. Every arrangement serves the balance of the universe.</li>
+                            <li><strong class="text-emerald-300">The Law of Silence:</strong> This is the absolute iron rule. If you draw <span class="enchanted-ink">Karnilla, Scarlet Witch, Raven, or Clea</span>, you must stop the divination immediately.</li>
+                            <li><strong class="text-emerald-300">Refrain from Re-asking:</strong> If the Law of Silence is triggered, you are strictly forbidden from asking the same question again for at least one lunar cycle.</li>
+                        </ul>
+                    </div>
+
+                    <div class="border border-rose-500/20 bg-rose-950/20 p-6 rounded-lg">
+                        <h3 class="font-mythic text-xl text-rose-400 mb-4 tracking-widest border-b border-rose-500/20 pb-2">Don'ts (Taboos & Boundaries)</h3>
+                        <ul class="space-y-4 text-sm text-rose-100/70">
+                            <li><strong class="text-rose-300">Do Not Harbor Disrespect:</strong> Divination is not a game. A mocking heart will disrupt the energy field of Arcalis, resulting in backlash-inducing messages.</li>
+                            <li><strong class="text-rose-300">Do Not Force a Reading:</strong> Never force a Reader to perform when their mental state is poor. Never force a Querent to draw if they are not ready to face the truth.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="relative bg-[#150505] border border-red-800/60 rounded-xl p-8 md:p-10 text-center shadow-[0_0_50px_rgba(220,38,38,0.15)] overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-red-900/30 pointer-events-none"></div>
+                    
+                    <i class="ph ph-warning-octagon text-5xl text-red-600 mb-4 relative z-10 drop-shadow-[0_0_10px_rgba(220,38,38,0.8)]"></i>
+                    <h3 class="font-mythic text-2xl md:text-3xl text-red-500 tracking-widest mb-6 relative z-10">The Final Caveat: The Master of Fate</h3>
+                    
+                    <p class="font-body italic text-red-200/90 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto relative z-10">
+                        "The Goddesses will only offer you advice; your life is created by you. They cannot bear the physical pain of your flesh, they cannot weep your tears, and they cannot live this brief, precious life for you... The Zenith of Arcalis may be infinitely high, but it is never higher than the brilliance of human free will."
+                    </p>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="mechanism.js"></script>
+</body>
+</html>
