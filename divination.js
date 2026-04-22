@@ -373,6 +373,35 @@ function triggerDeal() {
                 newCard.style.transform = `translate(calc(-50% + ${pos.x}px), calc(-50% + ${pos.y}px)) scale(${activeConfig.scale})`;
             }, index * 300);
 
+            // THIS IS THE TOUCH & CLICK BINDING SECTION
+            const handleReveal = function(e) {
+                if (e.type === 'touchstart') e.preventDefault(); // Prevents double-firing on phones
+                if (this.classList.contains('is-flipped')) return;
+
+                this.classList.add('is-flipped');
+                
+                const backFace = this.querySelector('.card-back');
+                backFace.classList.add('beaming-glow');
+                
+                this.style.zIndex = "50";
+                this.style.transform = `translate(calc(-50% + ${pos.x}px), calc(-50% + ${pos.y}px)) scale(${activeConfig.scale + 0.2})`;
+                
+                setTimeout(() => {
+                    this.style.transform = `translate(calc(-50% + ${pos.x}px), calc(-50% + ${pos.y}px)) scale(${activeConfig.scale})`;
+                    this.style.zIndex = "10";
+                }, 600); 
+
+                setTimeout(() => {
+                    const block = document.getElementById(`reading-block-${index}`);
+                    if (block) {
+                        block.classList.remove('opacity-0', 'translate-y-10');
+                    }
+                }, 800); 
+            };
+
+            newCard.addEventListener('click', handleReveal);
+            newCard.addEventListener('touchstart', handleReveal, {passive: false});
+
             const handleReveal = function(e) {
                 if (e.type === 'touchstart') e.preventDefault(); 
                 if (this.classList.contains('is-flipped')) return;
