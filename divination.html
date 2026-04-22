@@ -11,7 +11,7 @@
 </head>
 <body class="bg-black min-h-screen text-slate-200 overflow-x-hidden relative font-body selection:bg-amber-500/30">
 
-    <div id="scattered-cards-bg" class="fixed inset-0 z-0 pointer-events-none opacity-40 filter blur-[1px]"></div>
+    <div id="scattered-cards-bg" class="fixed inset-0 z-0 pointer-events-none opacity-70 filter blur-[1px]"></div>
     <canvas id="particle-canvas" class="fixed inset-0 z-[1] pointer-events-none"></canvas>
 
     <nav class="absolute top-6 left-8 z-50">
@@ -22,38 +22,61 @@
 
     <div id="transition-flash" class="fixed inset-0 z-[100] pointer-events-none opacity-0 transition-opacity duration-[800ms]"></div>
 
-    <div id="phase-altar" class="absolute inset-0 z-30 flex flex-col items-center justify-center transition-all duration-1000 bg-black/60 backdrop-blur-sm">
-        <h2 class="font-mythic text-3xl md:text-5xl text-amber-100 mb-4 tracking-[0.2em] drop-shadow-[0_0_15px_rgba(251,191,36,0.3)]">Approach the Altar</h2>
-        <p class="font-body text-slate-400 italic mb-12">Select the path of your inquiry.</p>
+    <div id="phase-altar" class="absolute inset-0 z-30 flex flex-col items-center justify-center transition-all duration-1000 bg-black/60 backdrop-blur-sm overflow-hidden">
         
-        <div class="flex flex-col md:flex-row gap-8 md:gap-16">
-            <button onclick="startRitual('point', event)" class="spread-btn group flex flex-col items-center">
-                <div class="w-24 h-24 rounded-full border border-purple-500/30 flex items-center justify-center bg-purple-950/20 group-hover:bg-purple-900/40 group-hover:border-purple-400 transition-all duration-500 group-hover:shadow-[0_0_30px_rgba(168,85,247,0.4)] relative overflow-hidden">
-                    <i class="ph-fill ph-sparkle text-3xl text-purple-400 group-hover:scale-125 transition-transform duration-500 relative z-10"></i>
-                    <div class="absolute inset-0 magic-circle-inner opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                </div>
-                <h3 class="font-mythic text-purple-200 tracking-widest mt-4 group-hover:text-purple-100">The Point</h3>
-            </button>
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-0 opacity-100 mix-blend-screen altar-bg-mask">
+            
+            <div class="altar-circle-outer absolute w-[800px] h-[800px] md:w-[1200px] md:h-[1200px] rounded-full border border-amber-500/80 flex items-center justify-center shadow-[0_0_60px_rgba(251,191,36,0.4)]">
+                <div class="absolute inset-[20px] rounded-full border-2 border-dashed border-amber-500/70"></div>
+                <div class="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-amber-500/50 to-transparent"></div>
+                <div class="absolute h-full w-[1px] bg-gradient-to-b from-transparent via-amber-500/50 to-transparent"></div>
+            </div>
+            
+            <div class="altar-circle-inner absolute w-[500px] h-[500px] md:w-[800px] md:h-[800px] rounded-full border border-purple-500/80 flex items-center justify-center shadow-[0_0_60px_rgba(168,85,247,0.4)]">
+                <div class="absolute inset-[30px] rounded-full border-4 border-dotted border-purple-500/70"></div>
+                <div class="absolute w-[70.7%] h-[70.7%] border-2 border-purple-500/50 rotate-45"></div>
+                <div class="absolute w-[70.7%] h-[70.7%] border-2 border-purple-500/50"></div>
+            </div>
+            
+            <div class="altar-circle-outer absolute w-[300px] h-[300px] md:w-[450px] md:h-[450px] rounded-full border-2 border-teal-500/70 shadow-[0_0_60px_rgba(45,212,191,0.5)] flex items-center justify-center" style="animation-duration: 40s;">
+                <div class="absolute inset-[10px] rounded-full border-2 border-dashed border-teal-500/60"></div>
+            </div>
 
-            <button onclick="startRitual('line', event)" class="spread-btn group flex flex-col items-center">
-                <div class="w-24 h-24 rounded-full border border-teal-500/30 flex items-center justify-center bg-teal-950/20 group-hover:bg-teal-900/40 group-hover:border-teal-400 transition-all duration-500 group-hover:shadow-[0_0_30px_rgba(45,212,191,0.4)] relative overflow-hidden">
-                    <i class="ph-fill ph-waves text-3xl text-teal-400 group-hover:scale-125 transition-transform duration-500 relative z-10"></i>
-                    <div class="absolute inset-0 magic-circle-inner opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                </div>
-                <h3 class="font-mythic text-teal-200 tracking-widest mt-4 group-hover:text-teal-100">The Line</h3>
-            </button>
+        </div>
 
-            <button onclick="startRitual('cross', event)" class="spread-btn group flex flex-col items-center">
-                <div class="w-24 h-24 rounded-full border border-amber-500/30 flex items-center justify-center bg-amber-950/20 group-hover:bg-amber-900/40 group-hover:border-amber-400 transition-all duration-500 group-hover:shadow-[0_0_30px_rgba(251,191,36,0.4)] relative overflow-hidden">
-                    <i class="ph-fill ph-crosshair text-3xl text-amber-400 group-hover:scale-125 transition-transform duration-500 relative z-10"></i>
-                    <div class="absolute inset-0 magic-circle-outer opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                </div>
-                <h3 class="font-mythic text-amber-200 tracking-widest mt-4 group-hover:text-amber-100">The Cross</h3>
-            </button>
+        <div class="relative z-10 flex flex-col items-center">
+            <h2 class="font-mythic text-3xl md:text-5xl text-amber-100 mb-4 tracking-[0.2em] drop-shadow-[0_0_15px_rgba(251,191,36,0.3)]">Approach the Altar</h2>
+            <p class="font-body text-slate-400 italic mb-12">Select the path of your inquiry.</p>
+            
+            <div class="flex flex-col md:flex-row gap-8 md:gap-16">
+                <button onclick="startRitual('point', event)" class="spread-btn group flex flex-col items-center">
+                    <div class="w-24 h-24 rounded-full border border-purple-500/30 flex items-center justify-center bg-purple-950/20 group-hover:bg-purple-900/40 group-hover:border-purple-400 transition-all duration-500 group-hover:shadow-[0_0_30px_rgba(168,85,247,0.4)] relative overflow-hidden">
+                        <i class="ph-fill ph-sparkle text-3xl text-purple-400 group-hover:scale-125 transition-transform duration-500 relative z-10"></i>
+                        <div class="absolute inset-0 magic-circle-inner opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
+                    <h3 class="font-mythic text-purple-200 tracking-widest mt-4 group-hover:text-purple-100">The Point</h3>
+                </button>
+
+                <button onclick="startRitual('line', event)" class="spread-btn group flex flex-col items-center">
+                    <div class="w-24 h-24 rounded-full border border-teal-500/30 flex items-center justify-center bg-teal-950/20 group-hover:bg-teal-900/40 group-hover:border-teal-400 transition-all duration-500 group-hover:shadow-[0_0_30px_rgba(45,212,191,0.4)] relative overflow-hidden">
+                        <i class="ph-fill ph-waves text-3xl text-teal-400 group-hover:scale-125 transition-transform duration-500 relative z-10"></i>
+                        <div class="absolute inset-0 magic-circle-inner opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
+                    <h3 class="font-mythic text-teal-200 tracking-widest mt-4 group-hover:text-teal-100">The Line</h3>
+                </button>
+
+                <button onclick="startRitual('cross', event)" class="spread-btn group flex flex-col items-center">
+                    <div class="w-24 h-24 rounded-full border border-amber-500/30 flex items-center justify-center bg-amber-950/20 group-hover:bg-amber-900/40 group-hover:border-amber-400 transition-all duration-500 group-hover:shadow-[0_0_30px_rgba(251,191,36,0.4)] relative overflow-hidden">
+                        <i class="ph-fill ph-crosshair text-3xl text-amber-400 group-hover:scale-125 transition-transform duration-500 relative z-10"></i>
+                        <div class="absolute inset-0 magic-circle-outer opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    </div>
+                    <h3 class="font-mythic text-amber-200 tracking-widest mt-4 group-hover:text-amber-100">The Cross</h3>
+                </button>
+            </div>
         </div>
     </div>
 
-    <div id="phase-table" class="fixed inset-x-0 top-0 z-20 flex flex-col items-center opacity-0 pointer-events-none transition-opacity duration-1000 min-h-screen">
+    <div id="phase-table" class="fixed inset-x-0 top-0 z-20 flex flex-col items-center opacity-0 pointer-events-none transition-opacity duration-1000 h-screen overflow-y-auto overflow-x-hidden">
         
         <div id="table-area" class="relative w-full h-[100vh] flex items-center justify-center shrink-0">
             <div id="vortex-container" class="relative w-full max-w-2xl h-full flex items-center justify-center cursor-pointer touch-none">
@@ -69,9 +92,8 @@
             </div>
         </div>
 
-        <div id="reading-section" class="w-full max-w-5xl px-6 pb-32 flex flex-col hidden bg-[#050505]/95 backdrop-blur-3xl rounded-t-[3rem] border-t border-amber-500/20 pt-16 shadow-[0_-20px_50px_rgba(0,0,0,0.8)]">
-            </div>
-
+        <div id="reading-section" class="w-full max-w-5xl px-6 pb-32 flex flex-col hidden bg-black/40 backdrop-blur-xl rounded-t-[3rem] border-t border-amber-500/20 pt-16 shadow-[0_-20px_50px_rgba(0,0,0,0.8)]">
+        </div>
     </div>
 
     <script src="divination.js"></script>

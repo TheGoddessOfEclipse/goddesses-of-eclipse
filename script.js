@@ -86,24 +86,27 @@ function initCarousel() {
     let isDown = false;
     let startX;
     let scrollLeft;
+    let isHovering = false; // Prevents auto-scroll when user is interacting
 
     track.addEventListener('mousedown', (e) => {
         isDown = true;
-        track.style.scrollSnapType = 'none'; // Disable snapping during drag
-        track.style.scrollBehavior = 'auto'; // Instant movement
+        isHovering = true;
+        track.style.scrollSnapType = 'none'; 
+        track.style.scrollBehavior = 'auto'; 
         startX = e.pageX - track.offsetLeft;
         scrollLeft = track.scrollLeft;
     });
 
     track.addEventListener('mouseleave', () => {
         isDown = false;
-        track.style.scrollSnapType = 'x mandatory'; // Restore snapping
+        isHovering = false;
+        track.style.scrollSnapType = 'x mandatory'; 
         track.style.scrollBehavior = 'smooth';
     });
 
     track.addEventListener('mouseup', () => {
         isDown = false;
-        track.style.scrollSnapType = 'x mandatory'; // Restore snapping
+        track.style.scrollSnapType = 'x mandatory'; 
         track.style.scrollBehavior = 'smooth';
     });
 
@@ -111,8 +114,23 @@ function initCarousel() {
         if (!isDown) return;
         e.preventDefault();
         const x = e.pageX - track.offsetLeft;
-        const walk = (x - startX) * 2; // Scroll speed
+        const walk = (x - startX) * 2; 
         track.scrollLeft = scrollLeft - walk;
+    });
+
+    // Detect interactions to gracefully pause the continuous slide
+    track.addEventListener('mouseenter', () => {
+        isHovering = true;
+        track.style.scrollSnapType = 'x mandatory'; // Snaps to the nearest card perfectly when hovering
+    });
+    
+    track.addEventListener('touchstart', () => {
+        isHovering = true;
+        track.style.scrollSnapType = 'x mandatory';
+    }, {passive: true});
+    
+    track.addEventListener('touchend', () => {
+        setTimeout(() => { isHovering = false; }, 2000); // Wait 2 seconds after touching before gliding again
     });
 
     // --- INFINITE CYCLE LOGIC ---
@@ -123,22 +141,34 @@ function initCarousel() {
     }, 100);
 
     track.addEventListener('scroll', () => {
-        if (isDown) return; // Prevent jumping while dragging
+        if (isDown) return; 
         const singleDeckWidth = track.scrollWidth / 3;
         
-        // If we hit the beginning of the first deck, jump to the middle deck
         if (track.scrollLeft < singleDeckWidth / 2) {
             track.style.scrollBehavior = 'auto';
             track.scrollLeft += singleDeckWidth;
             track.style.scrollBehavior = 'smooth';
         } 
-        // If we hit the end of the third deck, jump back to the middle deck
         else if (track.scrollLeft > singleDeckWidth * 2.5) {
             track.style.scrollBehavior = 'auto';
             track.scrollLeft -= singleDeckWidth;
             track.style.scrollBehavior = 'smooth';
         }
     });
+
+    // --- CONTINUOUS SMOOTH AUTO-SCROLL ENGINE ---
+    let autoScrollSpeed = 0.5; // Controls the speed of the glide. Lower is slower (0.5 is a nice, slow crawl)
+    
+    function smoothAutoScroll() {
+        if (!isDown && !isHovering) {
+            // Disable snapping so the engine can continuously push the cards pixel by pixel
+            track.style.scrollSnapType = 'none'; 
+            track.scrollLeft += autoScrollSpeed;
+        }
+        requestAnimationFrame(smoothAutoScroll); // Locks the animation to the monitor's 60hz refresh rate
+    }
+    
+    smoothAutoScroll(); // Start the engine!
 }
 
 // 3. Modal logic

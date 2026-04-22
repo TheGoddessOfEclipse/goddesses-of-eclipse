@@ -53,7 +53,7 @@ const meaningsData = [
     { id: 45, title: "The Heir", char: "Star Sapphire", duality: "Sufficiency", path: "Direction", color: "#d946ef", img: "images/Star-Sapphire.jpg", guidance: "You are enough. Do not let the fear of inadequacy stop you. Your vulnerability is your power." },
     { id: 46, title: "The Martyr", char: "Storm", duality: "Benefit", path: "Direction", color: "#cbd5e1", img: "images/Storm.png", guidance: "Voluntary sacrifice will bring great benefit to the whole today. Command your atmosphere." },
     { id: 47, title: "The Gatekeeper", char: "Karnilla", duality: "Static", path: "Direction", color: "#0c8f3c", img: "images/Karnilla.png", guidance: "Refuse to change today. Stubbornly guard your boundaries and maintain the eternal status quo." },
-    { id: 48, title: "The Mirror-Bearer", char: "Clea", duality: "Reality", path: "Direction", color: "#8c2cec", img: "images/Clea.png", guidance: "Look into the mirror. The answers you are seeking are already known to you. Face your own reality." }
+    { id: 48, title: "The Mirror-Bearer", char: "Clea", duality: "Reality", path: "Direction", color: "#6817b9", img: "images/Clea.png", guidance: "Look into the mirror. The answers you are seeking are already known to you. Face your own reality." }
 ];
 
 const phaseAltar = document.getElementById('phase-altar');
@@ -152,6 +152,25 @@ function startRitual(spreadType, event) {
     clickedBtn.style.transition = 'transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 1s';
     clickedBtn.style.transform = 'scale(1.8)';
     clickedBtn.style.filter = 'brightness(1.5)';
+
+// --- NEW: MANDALA ACCELERATION EFFECT ---
+    const outerRings = document.querySelectorAll('.altar-circle-outer');
+    const innerRings = document.querySelectorAll('.altar-circle-inner');
+    
+    outerRings.forEach(ring => {
+        ring.style.transition = 'all 1.5s cubic-bezier(0.5, 0, 1, 1)';
+        ring.style.animation = 'spin-slow-altar 1.5s cubic-bezier(0.5, 0, 1, 1) infinite';
+        ring.style.transform = 'scale(1.3)';
+        ring.style.filter = 'brightness(2.5)';
+    });
+
+    innerRings.forEach(ring => {
+        ring.style.transition = 'all 1.5s cubic-bezier(0.5, 0, 1, 1)';
+        ring.style.animation = 'spin-reverse-altar 1s cubic-bezier(0.5, 0, 1, 1) infinite';
+        ring.style.transform = 'scale(1.3)';
+        ring.style.filter = 'brightness(2.5)';
+    });
+    // ----------------------------------------
 
     let flashColor = '';
     if (spreadType === 'point') flashColor = 'rgba(168, 85, 247, 0.9)'; 
