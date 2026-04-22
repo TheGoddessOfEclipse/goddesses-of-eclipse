@@ -111,16 +111,22 @@
                 <div class="space-y-12 not-italic">
                     
                     <div class="flex flex-col md:flex-row items-center gap-8 bg-black/40 p-8 rounded-xl border border-purple-500/30 shadow-[0_0_30px_rgba(168,85,247,0.1)] relative overflow-hidden">
-                        <div class="flex-none w-64 h-64 relative flex items-center justify-center" id="table-point">
+                        <div class="flex-none w-full md:w-80 relative flex items-center justify-center py-12" id="table-point">
                             
-                            <div class="tarot-card 3d-card" data-spread="point" data-pos="center" style="opacity: 0; position: absolute;">
-                                <div class="card-inner">
-                                    <div class="card-front bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center">
-                                        <i class="ph-fill ph-moon-stars text-amber-500/50 text-2xl"></i>
+                            <div class="relative w-[60px] h-[132px]">
+                                <div class="tarot-card 3d-card slow-float center-card w-full h-full relative" data-spread="point" data-pos="center">
+                                    
+                                    <div class="card-inner w-full h-full relative">
+                                        <div class="card-front absolute inset-0 bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center rounded-md">
+                                            <i class="ph-fill ph-moon-stars text-amber-500/50 text-2xl"></i>
+                                        </div>
+                                        <div class="card-back absolute inset-0 bg-purple-900/80 border border-purple-400 flex items-center justify-center shadow-[0_0_20px_rgba(168,85,247,0.6)] rounded-md"></div>
                                     </div>
-                                    <div class="card-back bg-purple-900/80 border border-purple-400 flex items-center justify-center shadow-[0_0_20px_rgba(168,85,247,0.6)] text-center p-2">
-                                        <span class="text-[12px] text-white font-mythic font-bold tracking-widest drop-shadow-md">CORE</span>
+                                    
+                                    <div class="absolute top-full mt-4 left-1/2 -translate-x-1/2 whitespace-nowrap text-center pointer-events-none">
+                                        <span class="text-[12px] text-purple-400 font-mythic font-bold tracking-widest drop-shadow-md">CORE</span>
                                     </div>
+
                                 </div>
                             </div>
                             
@@ -132,37 +138,48 @@
                     </div>
 
                     <div class="flex flex-col md:flex-row items-center gap-8 bg-black/40 p-8 rounded-xl border border-purple-500/30 shadow-[0_0_30px_rgba(168,85,247,0.1)] relative overflow-hidden">
-                        <div class="flex-none w-64 h-64 relative flex items-center justify-center" id="table-line">
+                        <div class="flex-none w-full md:w-80 relative flex items-center justify-center py-12" id="table-line">
                             
-                            <div class="tarot-card 3d-card" data-spread="line" data-pos="left" style="opacity: 0; position: absolute;">
-                                <div class="card-inner">
-                                    <div class="card-front bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center">
-                                        <i class="ph-fill ph-moon-stars text-amber-500/50 text-2xl"></i>
-                                    </div>
-                                    <div class="card-back bg-slate-900/80 border border-slate-500/60 flex items-center justify-center text-center p-2">
-                                        <span class="text-[9px] text-slate-300 uppercase tracking-widest">PAST</span>
+                            <div class="flex gap-x-8">
+                                <div class="relative w-[60px] h-[132px]">
+                                    <div class="tarot-card 3d-card slow-float w-full h-full relative" data-spread="line" data-pos="left">
+                                        <div class="card-inner w-full h-full relative">
+                                            <div class="card-front absolute inset-0 bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center rounded-md">
+                                                <i class="ph-fill ph-moon-stars text-amber-500/50 text-2xl"></i>
+                                            </div>
+                                            <div class="card-back absolute inset-0 bg-slate-900/80 border border-slate-500/60 rounded-md"></div>
+                                        </div>
+                                        <div class="absolute top-full mt-3 left-1/2 -translate-x-1/2 whitespace-nowrap text-center pointer-events-none">
+                                            <span class="text-[10px] text-slate-300 uppercase tracking-widest font-mythic">PAST</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <div class="tarot-card 3d-card" data-spread="line" data-pos="center" style="opacity: 0; position: absolute;">
-                                <div class="card-inner">
-                                    <div class="card-front bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center">
-                                        <i class="ph-fill ph-moon-stars text-amber-500/50 text-2xl"></i>
-                                    </div>
-                                    <div class="card-back bg-purple-900/80 border border-purple-400 flex items-center justify-center shadow-[0_0_15px_rgba(168,85,247,0.4)] text-center p-2">
-                                        <span class="text-[9px] text-white font-bold uppercase tracking-widest">PRESENT</span>
+                                
+                                <div class="relative w-[60px] h-[132px] z-10">
+                                    <div class="tarot-card 3d-card slow-float center-card w-full h-full relative" data-spread="line" data-pos="center">
+                                        <div class="card-inner w-full h-full relative">
+                                            <div class="card-front absolute inset-0 bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center rounded-md">
+                                                <i class="ph-fill ph-moon-stars text-amber-500/50 text-2xl"></i>
+                                            </div>
+                                            <div class="card-back absolute inset-0 bg-purple-900/80 border border-purple-400 shadow-[0_0_15px_rgba(168,85,247,0.4)] rounded-md"></div>
+                                        </div>
+                                        <div class="absolute top-full mt-5 left-1/2 -translate-x-1/2 whitespace-nowrap text-center pointer-events-none">
+                                            <span class="text-[12px] text-white font-bold uppercase tracking-widest font-mythic drop-shadow-md">PRESENT</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <div class="tarot-card 3d-card" data-spread="line" data-pos="right" style="opacity: 0; position: absolute;">
-                                <div class="card-inner">
-                                    <div class="card-front bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center">
-                                        <i class="ph-fill ph-moon-stars text-amber-500/50 text-2xl"></i>
-                                    </div>
-                                    <div class="card-back bg-slate-900/80 border border-slate-500/60 flex items-center justify-center text-center p-2">
-                                        <span class="text-[9px] text-slate-300 uppercase tracking-widest">FUTURE</span>
+                                
+                                <div class="relative w-[60px] h-[132px]">
+                                    <div class="tarot-card 3d-card slow-float w-full h-full relative" data-spread="line" data-pos="right">
+                                        <div class="card-inner w-full h-full relative">
+                                            <div class="card-front absolute inset-0 bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center rounded-md">
+                                                <i class="ph-fill ph-moon-stars text-amber-500/50 text-2xl"></i>
+                                            </div>
+                                            <div class="card-back absolute inset-0 bg-slate-900/80 border border-slate-500/60 rounded-md"></div>
+                                        </div>
+                                        <div class="absolute top-full mt-3 left-1/2 -translate-x-1/2 whitespace-nowrap text-center pointer-events-none">
+                                            <span class="text-[10px] text-slate-300 uppercase tracking-widest font-mythic">FUTURE</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -175,65 +192,88 @@
                     </div>
 
                     <div class="flex flex-col md:flex-row items-center gap-8 bg-black/40 p-8 rounded-xl border border-purple-500/30 shadow-[0_0_30px_rgba(168,85,247,0.1)] relative overflow-hidden">
-                        <div class="flex-none w-64 h-64 relative flex items-center justify-center" id="table-cross">
+                        <div class="flex-none w-full md:w-80 relative flex items-center justify-center py-16" id="table-cross">
                             
-                            <div class="tarot-card 3d-card" data-spread="cross" data-pos="top" style="opacity: 0; position: absolute;">
-                                <div class="card-inner">
-                                    <div class="card-front bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center">
-                                        <i class="ph-fill ph-moon-stars text-amber-500/50 text-2xl"></i>
-                                    </div>
-                                    <div class="card-back bg-rose-950/80 border border-rose-500/60 flex flex-col items-center justify-center text-center p-2">
-                                        <span class="text-[8px] text-rose-300 uppercase tracking-widest">Uncontrollable<br>Internal</span>
-                                        <i class="ph ph-arrow-down text-amber-400 mt-1 animate-bounce"></i>
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="grid grid-cols-3 grid-rows-3 gap-x-10 gap-y-12 place-items-center">
 
-                            <div class="tarot-card 3d-card" data-spread="cross" data-pos="bottom" style="opacity: 0; position: absolute;">
-                                <div class="card-inner">
-                                    <div class="card-front bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center">
-                                        <i class="ph-fill ph-moon-stars text-amber-500/50 text-2xl"></i>
-                                    </div>
-                                    <div class="card-back bg-teal-950/80 border border-teal-500/60 flex flex-col items-center justify-center text-center p-2">
-                                        <i class="ph ph-arrow-up text-amber-400 mb-1 animate-bounce"></i>
-                                        <span class="text-[8px] text-teal-300 uppercase tracking-widest">Controllable<br>Internal</span>
+                                <div class="col-start-2 relative w-[50px] h-[110px]">
+                                    <div class="tarot-card 3d-card slow-float w-full h-full relative" data-spread="cross" data-pos="top">
+                                        <div class="card-inner w-full h-full relative">
+                                            <div class="card-front absolute inset-0 bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center rounded-md">
+                                                <i class="ph-fill ph-moon-stars text-amber-500/50 text-xl"></i>
+                                            </div>
+                                            <div class="card-back absolute inset-0 bg-rose-950/80 border border-rose-500/60 flex flex-col items-center justify-center rounded-md">
+                                                <i class="ph ph-arrow-down text-amber-400 animate-bounce"></i>
+                                            </div>
+                                        </div>
+                                        <div class="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 whitespace-nowrap text-center pointer-events-none">
+                                            <span class="text-[8px] text-rose-300 uppercase tracking-widest font-mythic leading-tight">Uncontrollable<br>Internal</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="tarot-card 3d-card" data-spread="cross" data-pos="left" style="opacity: 0; position: absolute;">
-                                <div class="card-inner">
-                                    <div class="card-front bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center">
-                                        <i class="ph-fill ph-moon-stars text-amber-500/50 text-2xl"></i>
-                                    </div>
-                                    <div class="card-back bg-rose-950/80 border border-rose-500/60 flex flex-col items-center justify-center text-center p-1">
-                                        <span class="text-[7px] text-rose-300 uppercase tracking-widest">Uncontrollable<br>External</span>
-                                        <i class="ph ph-arrow-right text-amber-400 mt-1 animate-bounce"></i>
+                                <div class="col-start-1 row-start-2 relative w-[50px] h-[110px]">
+                                    <div class="tarot-card 3d-card slow-float w-full h-full relative" data-spread="cross" data-pos="left" style="animation-delay: 0.2s">
+                                        <div class="card-inner w-full h-full relative">
+                                            <div class="card-front absolute inset-0 bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center rounded-md">
+                                                <i class="ph-fill ph-moon-stars text-amber-500/50 text-xl"></i>
+                                            </div>
+                                            <div class="card-back absolute inset-0 bg-rose-950/80 border border-rose-500/60 flex flex-col items-center justify-center rounded-md">
+                                                <i class="ph ph-arrow-right text-amber-400 animate-bounce"></i>
+                                            </div>
+                                        </div>
+                                        <div class="absolute top-full mt-3 left-1/2 -translate-x-1/2 whitespace-nowrap text-center pointer-events-none">
+                                            <span class="text-[8px] text-rose-300 uppercase tracking-widest font-mythic leading-tight">Uncontrollable<br>External</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="tarot-card 3d-card" data-spread="cross" data-pos="right" style="opacity: 0; position: absolute;">
-                                <div class="card-inner">
-                                    <div class="card-front bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center">
-                                        <i class="ph-fill ph-moon-stars text-amber-500/50 text-2xl"></i>
-                                    </div>
-                                    <div class="card-back bg-teal-950/80 border border-teal-500/60 flex flex-col items-center justify-center text-center p-1">
-                                        <span class="text-[7px] text-teal-300 uppercase tracking-widest">Controllable<br>External</span>
-                                        <i class="ph ph-arrow-left text-amber-400 mt-1 animate-bounce"></i>
+                                <div class="col-start-2 row-start-2 relative w-[60px] h-[132px] z-10">
+                                    <div class="tarot-card 3d-card slow-float center-card w-full h-full relative" data-spread="cross" data-pos="center">
+                                        <div class="card-inner w-full h-full relative">
+                                            <div class="card-front absolute inset-0 bg-black border border-purple-500/60 shadow-[0_0_15px_rgba(168,85,247,0.4)] flex items-center justify-center rounded-md">
+                                                <i class="ph-fill ph-sparkle text-purple-400 text-xl"></i>
+                                            </div>
+                                            <div class="card-back absolute inset-0 bg-purple-900/80 border border-purple-400 shadow-[0_0_20px_rgba(168,85,247,0.6)] rounded-md"></div>
+                                        </div>
+                                        <div class="absolute top-full mt-4 left-1/2 -translate-x-1/2 whitespace-nowrap text-center pointer-events-none">
+                                            <span class="text-[12px] text-white font-mythic font-bold tracking-widest drop-shadow-md">ROOT</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="tarot-card 3d-card" data-spread="cross" data-pos="center" style="opacity: 0; position: absolute;">
-                                <div class="card-inner">
-                                    <div class="card-front bg-black border border-purple-500/60 shadow-[0_0_15px_rgba(168,85,247,0.4)] flex items-center justify-center">
-                                        <i class="ph-fill ph-sparkle text-purple-400 text-2xl"></i>
-                                    </div>
-                                    <div class="card-back bg-purple-900/80 border border-purple-400 flex items-center justify-center shadow-[0_0_20px_rgba(168,85,247,0.6)] text-center">
-                                        <span class="text-[12px] text-white font-mythic font-bold tracking-widest drop-shadow-md">ROOT</span>
+                                <div class="col-start-3 row-start-2 relative w-[50px] h-[110px]">
+                                    <div class="tarot-card 3d-card slow-float w-full h-full relative" data-spread="cross" data-pos="right" style="animation-delay: 0.4s">
+                                        <div class="card-inner w-full h-full relative">
+                                            <div class="card-front absolute inset-0 bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center rounded-md">
+                                                <i class="ph-fill ph-moon-stars text-amber-500/50 text-xl"></i>
+                                            </div>
+                                            <div class="card-back absolute inset-0 bg-teal-950/80 border border-teal-500/60 flex flex-col items-center justify-center rounded-md">
+                                                <i class="ph ph-arrow-left text-amber-400 animate-bounce"></i>
+                                            </div>
+                                        </div>
+                                        <div class="absolute top-full mt-3 left-1/2 -translate-x-1/2 whitespace-nowrap text-center pointer-events-none">
+                                            <span class="text-[8px] text-teal-300 uppercase tracking-widest font-mythic leading-tight">Controllable<br>External</span>
+                                        </div>
                                     </div>
                                 </div>
+
+                                <div class="col-start-2 row-start-3 relative w-[50px] h-[110px]">
+                                    <div class="tarot-card 3d-card slow-float w-full h-full relative" data-spread="cross" data-pos="bottom" style="animation-delay: 0.6s">
+                                        <div class="card-inner w-full h-full relative">
+                                            <div class="card-front absolute inset-0 bg-black border border-amber-500/40 shadow-[0_0_10px_rgba(251,191,36,0.2)] flex items-center justify-center rounded-md">
+                                                <i class="ph-fill ph-moon-stars text-amber-500/50 text-xl"></i>
+                                            </div>
+                                            <div class="card-back absolute inset-0 bg-teal-950/80 border border-teal-500/60 flex flex-col items-center justify-center rounded-md">
+                                                <i class="ph ph-arrow-up text-amber-400 animate-bounce"></i>
+                                            </div>
+                                        </div>
+                                        <div class="absolute top-full mt-3 left-1/2 -translate-x-1/2 whitespace-nowrap text-center pointer-events-none">
+                                            <span class="text-[8px] text-teal-300 uppercase tracking-widest font-mythic leading-tight">Controllable<br>Internal</span>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
