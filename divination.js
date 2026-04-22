@@ -2,9 +2,8 @@
 // THE DIVINATION ENGINE (Phase 1-4)
 // ========================================================
 
-// 1. The Complete Oracle Database (Fixed Data Paths!)
 const meaningsData = [
-    // THE PROGRESSION (Cards 1-24)
+    // THE PROGRESSION
     { id: 1, title: "The Initiator", char: "Crystal", duality: "Simplicity", path: "Progression", color: "#cbd5e1", img: "images/Crystal.jpg", guidance: "Focus on the basics today. Strip away overthinking and tackle your tasks with pure, unburdened intention." },
     { id: 2, title: "The Executioner", char: "Psylocke", duality: "Proximity", path: "Progression", color: "#a855f7", img: "images/Psylocke.jpg", guidance: "Stop worrying about the distant future. Your power today lies in handling what is immediately in front of you." },
     { id: 3, title: "The Artist", char: "Songbird", duality: "Repulsion", path: "Progression", color: "#ec4899", img: "images/Songbird.png", guidance: "It is time to set firm boundaries. Protect your energy and say no to unreasonable demands." },
@@ -30,7 +29,7 @@ const meaningsData = [
     { id: 23, title: "The Onlooker", char: "Umar", duality: "Acceptance", path: "Progression", color: "#14b8a6", img: "images/Umar.jpg", guidance: "Observe the chaos around you with detached amusement. It is not your job to fix everything." },
     { id: 24, title: "The Hermit", char: "Jean Grey", duality: "Order", path: "Progression", color: "#f97316", img: "images/Jean-Grey.jpg", guidance: "You have earned your internal peace. Impose absolute order on your mind and your surroundings." },
 
-    // THE DIRECTION (Cards 25-48)
+    // THE DIRECTION
     { id: 25, title: "The Infant", char: "Singularity", duality: "Void", path: "Direction", color: "#3b82f6", img: "images/Singularity.jpg", guidance: "You are entering a space where the rules have not been written. Embrace the terrifying, infinite potential." },
     { id: 26, title: "The Deceased", char: "Hela", duality: "Malice", path: "Direction", color: "#10b981", img: "images/Hela.jpg", guidance: "Accept the harsh truth that something must end today. Let it wither. Enforce your boundaries strictly." },
     { id: 27, title: "The Ronin", char: "Scarlet Witch", duality: "Chaos", path: "Direction", color: "#dc2626", img: "images/Scarlet-Witch.jpg", guidance: "You hold the wild power to rewrite your reality today. Harness the chaos around you to manifest a miracle." },
@@ -73,15 +72,20 @@ let vortexAngle = 0;
 let vortexCards = [];
 let hasDealt = false;
 
-// --- PERFECT ASPECT RATIO (1:1.71) & SCALING MATH ---
+function hexToRgba(hex, alpha) {
+    const r = parseInt(hex.substring(1, 3), 16);
+    const g = parseInt(hex.substring(3, 5), 16);
+    const b = parseInt(hex.substring(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
 function getLayouts() {
     const vh = window.innerHeight;
     const vw = window.innerWidth;
-    const targetHeight = vh * 0.75; 
+    const targetHeight = vh * 0.60; 
     
-    // Standard Tarot Ratio is 1:1.71. By strictly enforcing this, object-cover will NOT crop the image!
     const baseW = 100; 
-    const baseH = 171; 
+    const baseH = 160; 
 
     let layouts = {};
 
@@ -89,7 +93,7 @@ function getLayouts() {
     if (baseW * pointScale > vw * 0.85) pointScale = (vw * 0.85) / baseW; 
     layouts['point'] = {
         scale: pointScale,
-        positions: [ { x: 0, y: 0 } ]
+        positions: [ { x: 0, y: 0, label: 'CORE ADVICE' } ]
     };
 
     let lineScale = targetHeight / baseH;
@@ -102,9 +106,9 @@ function getLayouts() {
     layouts['line'] = {
         scale: lineScale,
         positions: [
-            { x: -sX_line, y: 0 },
-            { x: 0, y: 0 },
-            { x: sX_line, y: 0 }
+            { x: -sX_line, y: 0, label: 'PAST' },
+            { x: 0, y: 0, label: 'PRESENT' },
+            { x: sX_line, y: 0, label: 'FUTURE' }
         ]
     };
 
@@ -121,11 +125,11 @@ function getLayouts() {
     layouts['cross'] = {
         scale: crossScale,
         positions: [
-            { x: 0, y: -sY_cross }, 
-            { x: -sX_cross, y: 0 }, 
-            { x: 0, y: 0 },         
-            { x: sX_cross, y: 0 },  
-            { x: 0, y: sY_cross }   
+            { x: 0, y: -sY_cross, label: 'UNCONTROLLABLE (INTERNAL)' }, 
+            { x: -sX_cross, y: 0, label: 'UNCONTROLLABLE (EXTERNAL)' }, 
+            { x: 0, y: 0, label: 'ROOT' },         
+            { x: sX_cross, y: 0, label: 'CONTROLLABLE (EXTERNAL)' },  
+            { x: 0, y: sY_cross, label: 'CONTROLLABLE (INTERNAL)' }   
         ]
     };
 
@@ -175,6 +179,7 @@ function initVortex() {
     vortexEngine.innerHTML = '';
     vortexCards = [];
     hasDealt = false;
+    
     shuffleInstructions.style.display = 'block';
     shuffleInstructions.style.opacity = '1';
     
@@ -193,6 +198,9 @@ function initVortex() {
 
     shuffleInstructions.classList.add('shuffle-pulse');
     animateVortex();
+
+    shuffleInstructions.querySelector('h3').innerText = "Hold to Shuffle";
+    shuffleProgress.style.width = '0%';
 
     vortexContainer.addEventListener('mousedown', startShuffleCharge);
     vortexContainer.addEventListener('mouseup', releaseShuffle);
@@ -223,7 +231,9 @@ function animateVortex() {
 }
 
 function startShuffleCharge() {
-    if (shuffleCharge >= 100 || hasDealt) return; 
+    if (hasDealt) return; 
+    if (shuffleCharge >= 100) return; 
+    
     isShuffling = true;
     shuffleInstructions.querySelector('h3').innerText = "Channeling...";
 }
@@ -242,11 +252,12 @@ function releaseShuffle() {
     }
 }
 
+// --- PHASE 3: THE SNAP DEAL & APPENDED READINGS ---
 function triggerDeal() {
     hasDealt = true; 
     
+    shuffleInstructions.style.display = 'none';
     shuffleInstructions.style.opacity = '0';
-    setTimeout(() => { shuffleInstructions.style.display = 'none'; }, 500);
 
     vortexCards.forEach(c => {
         c.el.style.transition = 'all 0.5s cubic-bezier(0.8, 0, 0.2, 1)';
@@ -261,109 +272,137 @@ function triggerDeal() {
     let shuffledDeck = [...meaningsData].sort(() => 0.5 - Math.random());
     let drawnCards = shuffledDeck.slice(0, requiredCards);
 
+    const readingSection = document.getElementById('reading-section');
+    readingSection.innerHTML = `
+        <div class="text-center mb-16 w-full">
+            <h3 class="font-mythic text-3xl md:text-5xl text-amber-400 tracking-[0.2em] drop-shadow-md">The Divine Revelation</h3>
+            <p class="font-body text-slate-400 italic text-lg mt-4">Scroll down to explore the profound messages of your spread.</p>
+            <i class="ph ph-caret-down text-amber-500/50 text-4xl mt-8 animate-bounce"></i>
+        </div>
+        <div id="readings-container" class="w-full flex flex-col gap-16"></div>
+    `;
+    readingSection.classList.remove('hidden'); 
+
     setTimeout(() => {
+        // FIXED: Only hide the swirling cards, NOT the whole container!
         vortexEngine.style.display = 'none'; 
         dealEngine.style.pointerEvents = 'auto'; 
+
+        const readingsContainer = document.getElementById('readings-container');
 
         activeConfig.positions.forEach((pos, index) => {
             const cardData = drawnCards[index];
             const isReversed = Math.random() > 0.5;
             
-            // Initialize the card with CSS variables for the Sacred Beam animation
+            const colorFull = hexToRgba(cardData.color, 1);
+            const colorDim = hexToRgba(cardData.color, 0.4);
+            
             const cardHTML = `
-                <div class="tarot-card 3d-card absolute" style="opacity: 0; transform: translate(0px, 0px) scale(0); width: 100px; height: 171px; top: 50%; left: 50%; margin-left: -50px; margin-top: -85px;" data-id="${cardData.id}">
-                    <div class="card-inner">
+                <div class="tarot-card 3d-card absolute" style="opacity: 0; width: 100px; height: auto; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);" data-id="${cardData.id}">
+                    <div class="card-inner relative w-full h-full">
                         
-                        <div class="card-front border border-amber-500/40 shadow-[0_0_15px_rgba(251,191,36,0.2)] bg-cover bg-center rounded-md" style="background-image: url('images/card-back.jpg');">
+                        <img src="${cardData.img}" class="w-full h-auto opacity-0 block pointer-events-none" />
+                        
+                        <div class="card-front absolute inset-0 bg-black border border-amber-500/40 shadow-[0_0_15px_rgba(251,191,36,0.2)] rounded-md overflow-hidden">
+                            <img src="images/card-back.jpg" class="w-full h-full object-fill" />
                         </div>
                         
-                        <div class="card-back bg-transparent flex items-center justify-center rounded-md" style="--theme-color: ${cardData.color}; --theme-color-dim: ${cardData.color}80;">
-                            <img src="${cardData.img}" class="w-full h-full object-cover rounded-md ${isReversed ? 'rotate-180' : ''}" />
+                        <div class="card-back absolute inset-0 bg-black rounded-md transition-all duration-1000" style="--theme-color: ${colorFull}; --theme-color-dim: ${colorDim}; border: 1px solid rgba(255,255,255,0.2);">
+                            <img src="${cardData.img}" class="w-full h-full object-fill rounded-md ${isReversed ? 'rotate-180' : ''}" />
                         </div>
                         
                     </div>
                 </div>
             `;
-            
             dealEngine.insertAdjacentHTML('beforeend', cardHTML);
             const newCard = dealEngine.lastElementChild;
+
+            const contextPrefixes = {
+                'CORE ADVICE': "The central truth of your inquiry is clear:",
+                'PAST': "Looking back, the roots of your situation were forged by this force:",
+                'PRESENT': "In this exact moment, the universe demands this of you:",
+                'FUTURE': "If you continue on this trajectory, your fate is pulling you toward this outcome:",
+                'ROOT': "Beneath the surface, the true, hidden core of this matter is:",
+                'UNCONTROLLABLE (INTERNAL)': "Deep in your subconscious, you are currently being tested by this shadow:",
+                'UNCONTROLLABLE (EXTERNAL)': "Outside forces entirely beyond your command are imposing this reality upon you:",
+                'CONTROLLABLE (INTERNAL)': "You hold the absolute, conscious power to shift your mindset toward this:",
+                'CONTROLLABLE (EXTERNAL)': "In your physical, waking environment, you must actively enforce this action:"
+            };
+            const dynamicPrefix = contextPrefixes[pos.label] || "";
+            
+            let finalGuidance = "";
+            if (isReversed) {
+                finalGuidance = `<strong style="color: #ef4444; font-family: 'Cinzel', serif; letter-spacing: 0.1em; font-style: normal;">[BLOCKED]</strong><br><br>${dynamicPrefix}<br><br>You are currently resisting the natural flow of this cosmic force. Reflect deeply on this blockage:<br><br>${cardData.guidance}`;
+            } else {
+                finalGuidance = `<strong style="color: ${cardData.color}; font-family: 'Cinzel', serif; letter-spacing: 0.1em; font-style: normal;">[ACTIVE]</strong><br><br>${dynamicPrefix}<br><br>${cardData.guidance}`;
+            }
+
+            const loreHTML = `
+                <div id="reading-block-${index}" class="opacity-0 translate-y-10 transition-all duration-1000 flex flex-col md:flex-row gap-10 items-start border-t border-white/10 pt-16">
+                    <div class="flex-none w-full md:w-64 rounded-xl overflow-hidden border border-white/20" style="box-shadow: 0 0 40px ${cardData.color}40;">
+                        <img src="${cardData.img}" class="w-full h-auto object-contain ${isReversed ? 'rotate-180' : ''}">
+                    </div>
+                    <div class="flex-1 w-full pt-4">
+                        <p class="text-sm text-amber-500 tracking-[0.2em] font-mythic uppercase mb-2 drop-shadow-md">${pos.label}</p>
+                        <h2 class="font-mythic text-5xl md:text-6xl font-black tracking-widest text-transparent bg-clip-text pb-2" style="background-image: linear-gradient(to bottom, #ffffff, ${cardData.color});">${cardData.char}</h2>
+                        <h3 class="font-mythic text-lg tracking-[0.3em] uppercase mb-10 drop-shadow-md" style="color: ${isReversed ? '#ef4444' : cardData.color};">${isReversed ? 'Reversed' : 'Upright'}</h3>
+                        
+                        <div class="grid grid-cols-2 gap-8 mb-10 border-b border-white/10 pb-10">
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase tracking-[0.2em] font-mythic mb-3">Macroscopic System</p>
+                                <p class="font-mythic text-2xl drop-shadow-md" style="color: ${cardData.color};">${cardData.duality}</p>
+                            </div>
+                            <div class="border-l border-white/5 pl-8">
+                                <p class="text-xs text-slate-500 uppercase tracking-[0.2em] font-mythic mb-3">Microscopic System</p>
+                                <p class="font-mythic text-2xl drop-shadow-md" style="color: ${cardData.color};">${cardData.title}</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white/[0.02] p-8 rounded-xl border border-white/5 shadow-inner">
+                            <p class="text-xs text-white/40 uppercase tracking-widest font-mythic mb-6">Divine Interpretation</p>
+                            <p class="font-body text-lg text-slate-300 leading-loose italic">${finalGuidance}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            readingsContainer.insertAdjacentHTML('beforeend', loreHTML);
 
             setTimeout(() => {
                 newCard.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
                 newCard.style.opacity = '1';
-                newCard.style.transform = `translate(${pos.x}px, ${pos.y}px) scale(${activeConfig.scale})`;
+                newCard.style.transform = `translate(calc(-50% + ${pos.x}px), calc(-50% + ${pos.y}px)) scale(${activeConfig.scale})`;
             }, index * 300);
 
-            newCard.addEventListener('click', function() {
+            const handleReveal = function(e) {
+                if (e.type === 'touchstart') e.preventDefault(); 
+                if (this.classList.contains('is-flipped')) return;
+
                 this.classList.add('is-flipped');
-                this.style.pointerEvents = 'none'; 
                 
-                // Add the pulsing Sacred Beam animation to the back face
                 const backFace = this.querySelector('.card-back');
                 backFace.classList.add('beaming-glow');
                 
                 this.style.zIndex = "50";
-                this.style.transform = `translate(${pos.x}px, ${pos.y}px) scale(${activeConfig.scale + 0.2})`;
+                this.style.transform = `translate(calc(-50% + ${pos.x}px), calc(-50% + ${pos.y}px)) scale(${activeConfig.scale + 0.2})`;
                 
                 setTimeout(() => {
-                    this.style.transform = `translate(${pos.x}px, ${pos.y}px) scale(${activeConfig.scale})`;
+                    this.style.transform = `translate(calc(-50% + ${pos.x}px), calc(-50% + ${pos.y}px)) scale(${activeConfig.scale})`;
                     this.style.zIndex = "10";
                 }, 600); 
 
-                setTimeout(() => { populateReading(cardData, isReversed); }, 900); 
-            });
+                setTimeout(() => {
+                    const block = document.getElementById(`reading-block-${index}`);
+                    if (block) {
+                        block.classList.remove('opacity-0', 'translate-y-10');
+                    }
+                }, 800); 
+            };
+
+            newCard.addEventListener('click', handleReveal);
+            newCard.addEventListener('touchstart', handleReveal, {passive: false});
         });
 
     }, 600);
-}
-
-// --- PHASE 4: THE LORE READING PANEL ---
-function populateReading(card, isReversed) {
-    const panel = document.getElementById('reading-panel');
-    
-    // Load uncropped image into the elegant panel
-    const panelImg = document.getElementById('panel-card-img');
-    const panelImgContainer = document.getElementById('panel-card-container');
-    panelImg.src = card.img;
-    panelImgContainer.style.borderColor = card.color;
-    panelImgContainer.style.boxShadow = `0 0 30px ${card.color}50`;
-    
-    if (isReversed) {
-        panelImg.classList.add('rotate-180');
-    } else {
-        panelImg.classList.remove('rotate-180');
-    }
-    
-    document.getElementById('read-char').innerText = card.char;
-    
-    const orientationLabel = document.getElementById('read-orientation');
-    const guidanceBlock = document.getElementById('read-guidance');
-
-    if (isReversed) {
-        orientationLabel.innerText = "Reversed";
-        orientationLabel.style.color = "#ef4444"; 
-        guidanceBlock.innerHTML = `<strong style="color: #ef4444; font-family: 'Cinzel', serif; font-size: 0.9em; letter-spacing: 0.1em; font-style: normal;">[BLOCKED]</strong><br><br>You are resisting the natural flow of this cosmic force. Reflect deeply:<br><br>${card.guidance}`;
-    } else {
-        orientationLabel.innerText = "Upright";
-        orientationLabel.style.color = card.color; 
-        guidanceBlock.innerHTML = `<strong style="color: ${card.color}; font-family: 'Cinzel', serif; font-size: 0.9em; letter-spacing: 0.1em; font-style: normal;">[ACTIVE]</strong><br><br>${card.guidance}`;
-    }
-
-    document.getElementById('read-macro').innerText = card.duality;
-    document.getElementById('read-macro').style.color = card.color;
-    document.getElementById('read-micro').innerText = card.path;
-    document.getElementById('read-micro').style.color = card.color;
-
-    document.getElementById('read-char').style.backgroundImage = `linear-gradient(to bottom, #ffffff, ${card.color})`;
-
-    panel.style.display = 'block';
-    setTimeout(() => { panel.classList.add('panel-open'); }, 50);
-}
-
-function closeReading() {
-    const panel = document.getElementById('reading-panel');
-    panel.classList.remove('panel-open');
-    setTimeout(() => { panel.style.display = 'none'; }, 700); 
 }
 
 // ========================================================
@@ -375,7 +414,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initRepellingParticles();
 });
 
-// Scattered cards now Spin 360 Vertically
 function scatterBackgroundCards() {
     const bgContainer = document.getElementById('scattered-cards-bg');
     if (!bgContainer) return;
@@ -388,7 +426,6 @@ function scatterBackgroundCards() {
     const uniqueCards = shuffledDeck.slice(0, numCards);
 
     uniqueCards.forEach((cardData) => {
-        // Create an outer wrapper for position/scale
         const wrapper = document.createElement('div');
         wrapper.className = 'scattered-wrapper';
         
@@ -401,11 +438,10 @@ function scatterBackgroundCards() {
         wrapper.style.top = `${posY}px`;
         wrapper.style.transform = `rotate(${rotation}deg) scale(${scale})`;
         
-        // Create an inner div that slowly spins 360 over the Y-axis
         const inner = document.createElement('div');
         inner.className = 'scattered-card-inner';
         inner.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('${cardData.img}')`;
-        inner.style.animationDuration = `${15 + Math.random() * 25}s`; // Random pace between 15s and 40s
+        inner.style.animationDuration = `${15 + Math.random() * 25}s`; 
         inner.style.animationDirection = Math.random() > 0.5 ? 'normal' : 'reverse';
 
         wrapper.appendChild(inner);

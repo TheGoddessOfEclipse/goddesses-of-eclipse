@@ -9,7 +9,7 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-black min-h-screen text-slate-200 overflow-hidden relative font-body selection:bg-amber-500/30">
+<body class="bg-black min-h-screen text-slate-200 overflow-x-hidden relative font-body selection:bg-amber-500/30">
 
     <div id="scattered-cards-bg" class="fixed inset-0 z-0 pointer-events-none opacity-40 filter blur-[1px]"></div>
     <canvas id="particle-canvas" class="fixed inset-0 z-[1] pointer-events-none"></canvas>
@@ -53,55 +53,25 @@
         </div>
     </div>
 
-    <div id="phase-table" class="absolute inset-0 z-20 flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-1000">
-        <div id="vortex-container" class="relative w-full max-w-2xl h-[60vh] flex items-center justify-center cursor-pointer touch-none">
-            <div id="shuffle-instructions" class="absolute text-center z-10 pointer-events-none transition-opacity duration-500">
-                <h3 class="font-mythic text-2xl text-amber-400 tracking-[0.2em] mb-2 drop-shadow-md">Hold to Shuffle</h3>
-                <p class="font-body text-slate-300 italic text-sm">Meditate on your question. Release when intuition commands.</p>
-                <div class="w-48 h-1 bg-white/10 mx-auto mt-4 rounded-full overflow-hidden">
-                    <div id="shuffle-progress" class="h-full bg-amber-500 w-0 transition-all duration-75"></div>
-                </div>
-            </div>
-            <div id="vortex-engine" class="absolute w-10 h-10 transform-gpu preserve-3d"></div>
-            <div id="deal-engine" class="absolute inset-0 flex items-center justify-center transform-gpu preserve-3d pointer-events-none"></div>
-        </div>
-    </div>
-
-    <div id="reading-panel" class="absolute right-0 top-0 bottom-0 w-full md:w-[450px] bg-[#030303]/95 backdrop-blur-2xl border-l border-white/10 shadow-[-30px_0_50px_rgba(0,0,0,0.9)] z-50 transform translate-x-full transition-transform duration-700 overflow-y-auto hidden">
+    <div id="phase-table" class="absolute inset-x-0 top-0 z-20 flex flex-col items-center opacity-0 pointer-events-none transition-opacity duration-1000 min-h-screen">
         
-        <div class="p-8 relative flex flex-col items-center">
-            
-            <button onclick="closeReading()" class="absolute top-6 right-6 text-slate-500 hover:text-white transition-colors z-10 bg-white/5 p-2 rounded-full border border-white/5 hover:border-white/20">
-                <i class="ph ph-x text-xl"></i>
-            </button>
-
-            <div class="mt-8 mb-6 w-full flex justify-center">
-                <div id="panel-card-container" class="relative rounded-md transition-all duration-700" style="width: 200px; height: 342px; border: 1px solid rgba(255,255,255,0.2);">
-                    <img id="panel-card-img" src="" class="w-full h-full object-cover rounded-md transition-transform duration-700" />
+        <div id="table-area" class="relative w-full h-[100vh] flex items-center justify-center shrink-0">
+            <div id="vortex-container" class="relative w-full max-w-2xl h-full flex items-center justify-center cursor-pointer touch-none">
+                <div id="shuffle-instructions" class="absolute text-center z-10 pointer-events-none transition-opacity duration-500">
+                    <h3 class="font-mythic text-2xl text-amber-400 tracking-[0.2em] mb-2 drop-shadow-md">Hold to Shuffle</h3>
+                    <p class="font-body text-slate-300 italic text-sm">Meditate on your question. Release when intuition commands.</p>
+                    <div class="w-48 h-1 bg-white/10 mx-auto mt-4 rounded-full overflow-hidden">
+                        <div id="shuffle-progress" class="h-full bg-amber-500 w-0 transition-all duration-75"></div>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="text-center w-full mb-8">
-                <h2 id="read-char" class="font-mythic text-4xl md:text-5xl font-black tracking-widest text-transparent bg-clip-text pb-2"></h2>
-                <h3 id="read-orientation" class="font-mythic text-sm tracking-[0.3em] uppercase drop-shadow-md"></h3>
-            </div>
-
-            <div class="w-full grid grid-cols-2 gap-6 mb-8 border-t border-white/10 pt-8">
-                <div class="text-center">
-                    <p class="text-[9px] text-slate-500 uppercase tracking-[0.2em] font-mythic mb-2">Macroscopic System<br><span class="text-[7px] text-slate-600 tracking-wider">Abstract Concept</span></p>
-                    <p id="read-macro" class="font-mythic text-xl text-white drop-shadow-md"></p>
-                </div>
-                <div class="text-center border-l border-white/5">
-                    <p class="text-[9px] text-slate-500 uppercase tracking-[0.2em] font-mythic mb-2">Microscopic System<br><span class="text-[7px] text-slate-600 tracking-wider">Mortal Path</span></p>
-                    <p id="read-micro" class="font-mythic text-xl text-white drop-shadow-md"></p>
-                </div>
-            </div>
-
-            <div class="w-full flex-1 mb-12">
-                <p class="text-[10px] text-white/40 uppercase tracking-widest font-mythic mb-4 text-center">Divine Interpretation</p>
-                <div id="read-guidance" class="font-body text-base text-slate-300 leading-loose bg-white/[0.02] p-6 rounded-xl border border-white/5 shadow-inner"></div>
+                <div id="vortex-engine" class="absolute w-10 h-10 transform-gpu preserve-3d"></div>
+                <div id="deal-engine" class="absolute inset-0 flex items-center justify-center transform-gpu preserve-3d pointer-events-none"></div>
             </div>
         </div>
+
+        <div id="reading-section" class="w-full max-w-5xl px-6 pb-32 flex flex-col hidden bg-[#050505]/95 backdrop-blur-3xl rounded-t-[3rem] border-t border-amber-500/20 pt-16 shadow-[0_-20px_50px_rgba(0,0,0,0.8)]">
+            </div>
+
     </div>
 
     <script src="divination.js"></script>
