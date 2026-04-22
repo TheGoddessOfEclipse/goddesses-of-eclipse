@@ -356,10 +356,10 @@ html, body {
     line-height: 1.8;
 }
 
-/* Perfected 1:2.2 Tall Ratio to match your artwork */
 .spread-card {
     width: 60px;
-    height: 132px; 
+    height: 132px; /* Tall 1:2.2 Ratio */
+    flex-shrink: 0; /* THIS PREVENTS THE SQUISHING DISTORTION */
     border: 1px solid rgba(251, 191, 36, 0.4);
     border-radius: 6px;
     background: rgba(0,0,0,0.5);

@@ -224,7 +224,15 @@ function initVortex() {
     vortexContainer.addEventListener('mousedown', startShuffleCharge);
     vortexContainer.addEventListener('mouseup', releaseShuffle);
     vortexContainer.addEventListener('mouseleave', releaseShuffle);
-    vortexContainer.addEventListener('touchstart', (e) => { e.preventDefault(); startShuffleCharge(); }, {passive: false});
+    
+    // FIXED: Only prevents scroll if the cards haven't been dealt yet!
+    vortexContainer.addEventListener('touchstart', (e) => { 
+        if (!hasDealt) {
+            e.preventDefault(); 
+            startShuffleCharge(); 
+        }
+    }, {passive: false});
+    
     vortexContainer.addEventListener('touchend', releaseShuffle);
 }
 
@@ -273,7 +281,7 @@ function releaseShuffle() {
 
 // --- PHASE 3: THE SNAP DEAL & APPENDED READINGS ---
 function triggerDeal() {
-    hasDealt = true; 
+    hasDealt = true; // This instantly unlocks mobile scrolling!
     
     shuffleInstructions.style.display = 'none';
     shuffleInstructions.style.opacity = '0';
@@ -306,8 +314,6 @@ function triggerDeal() {
         
         vortexEngine.style.display = 'none'; 
         dealEngine.style.pointerEvents = 'auto'; 
-        
-        // CRITICAL FOR MOBILE FLIPPING: Remove the touch-none class so user touches aren't blocked!
         vortexContainer.classList.remove('touch-none');
 
         const readingsContainer = document.getElementById('readings-container');
@@ -319,20 +325,16 @@ function triggerDeal() {
             const colorFull = hexToRgba(cardData.color, 1);
             const colorDim = hexToRgba(cardData.color, 0.4);
             
+            // FIXED: Locked exactly to width: 100px; height: 220px. Removes shape distortion!
             const cardHTML = `
-                <div class="tarot-card 3d-card absolute" style="opacity: 0; width: 100px; height: auto; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);" data-id="${cardData.id}">
+                <div class="tarot-card 3d-card absolute" style="opacity: 0; width: 100px; height: 220px; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);" data-id="${cardData.id}">
                     <div class="card-inner relative w-full h-full">
-                        
-                        <img src="${cardData.img}" class="w-full h-auto opacity-0 block pointer-events-none" />
-                        
                         <div class="card-front absolute inset-0 bg-black border border-amber-500/40 shadow-[0_0_15px_rgba(251,191,36,0.2)] rounded-md overflow-hidden">
-                            <img src="images/card-back.jpg" class="w-full h-full object-fill" />
+                            <img src="images/card-back.jpg" class="w-full h-full object-cover" />
                         </div>
-                        
                         <div class="card-back absolute inset-0 bg-black rounded-md transition-all duration-1000" style="--theme-color: ${colorFull}; --theme-color-dim: ${colorDim}; border: 1px solid rgba(255,255,255,0.2);">
-                            <img src="${cardData.img}" class="w-full h-full object-fill rounded-md ${isReversed ? 'rotate-180' : ''}" />
+                            <img src="${cardData.img}" class="w-full h-full object-cover rounded-md ${isReversed ? 'rotate-180' : ''}" />
                         </div>
-                        
                     </div>
                 </div>
             `;
@@ -395,9 +397,6 @@ function triggerDeal() {
                 newCard.style.transform = `translate(calc(-50% + ${pos.x}px), calc(-50% + ${pos.y}px)) scale(${activeConfig.scale})`;
             }, index * 300);
 
-            // ========================================================
-            // SMART TAP ENGINE (Scroll Safe & Mobile Friendly)
-            // ========================================================
             const handleReveal = function() {
                 if (this.classList.contains('is-flipped')) return;
 
@@ -423,17 +422,15 @@ function triggerDeal() {
                 }, 800); 
             };
 
-            // 1. Mouse Clicks (Desktop)
             newCard.addEventListener('click', handleReveal);
             
-            // 2. Smart Taps (Mobile): Detects if finger tapped vs scrolled
             let touchStartX = 0;
             let touchStartY = 0;
 
             newCard.addEventListener('touchstart', function(e) {
                 touchStartX = e.touches[0].clientX;
                 touchStartY = e.touches[0].clientY;
-            }, { passive: true }); // Passive true ensures scrolling is NEVER blocked!
+            }, { passive: true });
 
             newCard.addEventListener('touchend', function(e) {
                 const touchEndX = e.changedTouches[0].clientX;
@@ -441,7 +438,6 @@ function triggerDeal() {
                 const moveX = Math.abs(touchEndX - touchStartX);
                 const moveY = Math.abs(touchEndY - touchStartY);
                 
-                // If the finger moved less than 10 pixels, it's a tap! If more, it's a page scroll!
                 if (moveX < 10 && moveY < 10) {
                     handleReveal.call(this);
                 }
