@@ -85,7 +85,7 @@ function getLayouts() {
     const targetHeight = vh * 0.60; 
     
     const baseW = 100; 
-    const baseH = 160; 
+    const baseH = 220; 
 
     let layouts = {};
 
@@ -284,7 +284,6 @@ function triggerDeal() {
     readingSection.classList.remove('hidden'); 
 
     setTimeout(() => {
-        // FIXED: Only hide the swirling cards, NOT the whole container!
         vortexEngine.style.display = 'none'; 
         dealEngine.style.pointerEvents = 'auto'; 
 
@@ -304,11 +303,11 @@ function triggerDeal() {
                         <img src="${cardData.img}" class="w-full h-auto opacity-0 block pointer-events-none" />
                         
                         <div class="card-front absolute inset-0 bg-black border border-amber-500/40 shadow-[0_0_15px_rgba(251,191,36,0.2)] rounded-md overflow-hidden">
-                            <img src="images/card-back.jpg" class="w-full h-full object-fill" />
+                            <img src="images/card-back.jpg" class="w-full h-full object-cover" />
                         </div>
                         
                         <div class="card-back absolute inset-0 bg-black rounded-md transition-all duration-1000" style="--theme-color: ${colorFull}; --theme-color-dim: ${colorDim}; border: 1px solid rgba(255,255,255,0.2);">
-                            <img src="${cardData.img}" class="w-full h-full object-fill rounded-md ${isReversed ? 'rotate-180' : ''}" />
+                            <img src="${cardData.img}" class="w-full h-full object-cover rounded-md ${isReversed ? 'rotate-180' : ''}" />
                         </div>
                         
                     </div>
@@ -373,12 +372,12 @@ function triggerDeal() {
                 newCard.style.transform = `translate(calc(-50% + ${pos.x}px), calc(-50% + ${pos.y}px)) scale(${activeConfig.scale})`;
             }, index * 300);
 
-            // THIS IS THE TOUCH & CLICK BINDING SECTION
-            const handleReveal = function(e) {
-                if (e.type === 'touchstart') e.preventDefault(); // Prevents double-firing on phones
+            // PERFECT SINGLE CLICK HANDLER
+            const handleReveal = function() {
                 if (this.classList.contains('is-flipped')) return;
 
                 this.classList.add('is-flipped');
+                this.style.pointerEvents = 'none'; 
                 
                 const backFace = this.querySelector('.card-back');
                 backFace.classList.add('beaming-glow');
@@ -400,35 +399,6 @@ function triggerDeal() {
             };
 
             newCard.addEventListener('click', handleReveal);
-            newCard.addEventListener('touchstart', handleReveal, {passive: false});
-
-            const handleReveal = function(e) {
-                if (e.type === 'touchstart') e.preventDefault(); 
-                if (this.classList.contains('is-flipped')) return;
-
-                this.classList.add('is-flipped');
-                
-                const backFace = this.querySelector('.card-back');
-                backFace.classList.add('beaming-glow');
-                
-                this.style.zIndex = "50";
-                this.style.transform = `translate(calc(-50% + ${pos.x}px), calc(-50% + ${pos.y}px)) scale(${activeConfig.scale + 0.2})`;
-                
-                setTimeout(() => {
-                    this.style.transform = `translate(calc(-50% + ${pos.x}px), calc(-50% + ${pos.y}px)) scale(${activeConfig.scale})`;
-                    this.style.zIndex = "10";
-                }, 600); 
-
-                setTimeout(() => {
-                    const block = document.getElementById(`reading-block-${index}`);
-                    if (block) {
-                        block.classList.remove('opacity-0', 'translate-y-10');
-                    }
-                }, 800); 
-            };
-
-            newCard.addEventListener('click', handleReveal);
-            newCard.addEventListener('touchstart', handleReveal, {passive: false});
         });
 
     }, 600);
